@@ -1,5 +1,6 @@
 import { useRoutes } from 'react-router-dom';
-import Landing from '../../lemonadestand/Landing';
+import Landing from '../../landing';
+import LemonadeStand from '../../lemonadestand';
 import Confirmation from '../../lemonadestand/Confirmation';
 
 const Routing = () => {
@@ -9,7 +10,11 @@ const Routing = () => {
             element: <Landing />,
         },
         {
-            path: "confirmation",
+            path: "/lemonadestand",
+            element: <LemonadeStand />,
+        },
+        {
+            path: "/confirmation",
             element: <Confirmation />,
         },
     ]);

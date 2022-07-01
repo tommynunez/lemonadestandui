@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Grid, Container, TextField, FormControl } from '@mui/material';
+import { Grid, TextField, FormControl } from '@mui/material';
 
 type LineItem = {
     productId: number,
@@ -59,7 +59,8 @@ const ProductCard = (props: any) => (
                                 min: 0, max: 25
                             }
                         }}
-                        value={props?.lineItems[props?.index]?.quantity}
+                        autoFocus={props?.index === 0}
+                        defaultValue={props?.lineItems[props?.index]?.quantity}
                         onChange={(e: any) => { props?.handleSettingQuantity(e.target.value, props?.item) }}
                     />
                 </FormControl>
@@ -71,34 +72,44 @@ const ProductCard = (props: any) => (
 const Product = (props: any) => {
     const { data, loading } = useQuery(GET_ALL_PRODUCTS);
 
+    useEffect(() => {
+        if (!loading && data && data?.products?.length > 0) {
+            let lineItemArr = [] as Array<LineItem>;
+            data?.products?.map((item: Product, index: number) => {
+                let lineItemObject = {} as LineItem;
+                lineItemObject.cost = item?.amount;
+                lineItemObject.productId = item?.id;
+                lineItemObject.quantity = 0;
+                lineItemArr.push(lineItemObject);
+            });
+
+            props.setLineItem(lineItemArr);
+        }
+    }, [loading]);
+
     const handleSettingLineItem = (quantity: number, product: Product) => {
         let lineItemObject = {} as LineItem;
 
         const costAmount = parseFloat(product.amount) * quantity;
-        lineItemObject.quantity = quantity;
         lineItemObject.cost = costAmount.toString();
         lineItemObject.productId = product.id;
+        lineItemObject.quantity = quantity;
         return lineItemObject;
     }
 
     const handleSettingQuantity = (quantity: number, product: Product) => {
+        let lineItemObject = {} as LineItem;
         const lineItem = props?.lineItems?.filter((item, index) => {
             return product.id === item?.productId;
         });
 
-        let lineItemObject = {} as LineItem;
-
         lineItemObject = handleSettingLineItem(quantity, product);
         if (lineItem.length > 0) {
             console.log('rrr', props?.lineItems);
-            const lineItemswithQuqntity = props?.lineItems?.filter((item, index) => {
-                return parseInt(item?.quantity) > 0
-            });
-            console.log('rrr', lineItemswithQuqntity);
 
             //update specific line item
-            const lineItemIndex = lineItemswithQuqntity.findIndex(x => x.productId === product?.id);
-            const lineItemsCopy = [...lineItemswithQuqntity];
+            const lineItemIndex = props?.lineItems?.findIndex(x => x.productId === product?.id);
+            const lineItemsCopy = [...props?.lineItems];
             lineItemsCopy[lineItemIndex] = lineItemObject;
             props?.setLineItem(lineItemsCopy);
         } else {
@@ -106,6 +117,10 @@ const Product = (props: any) => {
             props?.setLineItem(prevState => ([
                 ...prevState, lineItemObject
             ]));
+        }
+
+        if (lineItemObject.quantity > 0) {
+            props?.setHasErrors(false);
         }
     };
 
