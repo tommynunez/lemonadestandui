@@ -1,4 +1,4 @@
-const Review = () => {
+const Review = (props: any) => {
     return (<>3</>);
 }
 
