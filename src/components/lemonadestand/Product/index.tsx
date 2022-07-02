@@ -79,7 +79,7 @@ const Product = (props: any) => {
                 let lineItemObject = {} as LineItem;
                 lineItemObject.cost = item?.amount;
                 lineItemObject.productId = item?.id;
-                lineItemObject.quantity = 0;
+                lineItemObject.quantity = props?.lineItems[index]?.quantity;
                 lineItemArr.push(lineItemObject);
             });
 
@@ -120,7 +120,10 @@ const Product = (props: any) => {
         }
 
         if (lineItemObject.quantity > 0) {
-            props?.setHasErrors(false);
+            props?.setErrors({
+                ...props.error,
+                isActive: false
+            });
         }
     };
 

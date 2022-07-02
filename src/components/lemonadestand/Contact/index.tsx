@@ -1,90 +1,77 @@
 import { Box, FormControl, FormHelperText, Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect } from "react";
+
+const contactFields = [
+    {
+        id: "firstName",
+        name: "firstName",
+        label: "First Name",
+    },
+    {
+        id: "lastName",
+        name: "lastName",
+        label: "Last Name",
+    },
+    {
+        id: "email",
+        name: "email",
+        label: "Email",
+    },
+    {
+        id: "phone",
+        name: "phone",
+        label: "Phone",
+    },
+]
 
 const Contact = (props: any) => {
+    useEffect(() => {
+        props?.setFormhasLoadedTrue();
+        return () => {
+            props?.setFormhasLoadedFalse();
+        }
+        console.log('asdf', props?.formhandler);
+    }, []);
+
     return (
         <>
             <Box sx={{ flexGrow: 1, my: 10 }}>
                 <Grid container spacing={5} px={10}>
-                    <Grid item md={6}>
-                        <FormControl fullWidth sx={{ m: 1 }}>
-                            <TextField
-                                error={!props?.contactInformation?.firstName}
-                                required
-                                id="firstName"
-                                label="First Name"
-                                name="firstName"
-                                onChange={(e) => props?.setcontactInformation({ ...props.contactInformation, [e.target.name]: e.target.value })}
-                            />
-                            {!props?.contactInformation?.firstName
-                                ?
-                                <FormHelperText id="component-helper-text">
-                                    First Name is Required
-                                </FormHelperText>
-                                : null
-                            }
-                        </FormControl>
-                    </Grid>
-                    <Grid item md={6}>
-                        <FormControl fullWidth sx={{ m: 1 }}>
-                            <TextField
-                                error={!props?.contactInformation?.lastName}
-                                required
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
-                                onChange={(e) => props?.setcontactInformation({ ...props.contactInformation, [e.target.name]: e.target.value })}
-                            />
-                            {!props?.contactInformation?.lastName
-                                ?
-                                <FormHelperText id="component-helper-text">
-                                    Last Name is Required
-                                </FormHelperText>
-                                : null
-                            }
-                        </FormControl>
-                    </Grid>
-                    <Grid item md={6}>
-                        <FormControl fullWidth sx={{ m: 1 }}>
-                            <TextField
-                                error={!props?.contactInformation?.email}
-                                required
-                                id="email"
-                                label="Email"
-                                name="email"
-                                onChange={(e) => props?.setcontactInformation({ ...props.contactInformation, [e.target.name]: e.target.value })}
-                            />
-                            {!props?.contactInformation?.email
-                                ?
-                                <FormHelperText id="component-helper-text">
-                                    Email is Required
-                                </FormHelperText>
-                                : null
-                            }
-                        </FormControl>
-                    </Grid>
-                    <Grid item md={6}>
-                        <FormControl fullWidth sx={{ m: 1 }}>
-                            <TextField
-                                error={!props?.contactInformation?.phone}
-                                required
-                                id="phone"
-                                label="Phone Number"
-                                name="phone"
-                                onChange={(e) => {
-                                    props?.setcontactInformation({ ...props.contactInformation, [e.target.name]: e.target.value })
-                                }}
-                                inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                            />
-                            {!props?.contactInformation?.phone
-                                ?
-                                <FormHelperText id="component-helper-text">
-                                    Phone is Required
-                                </FormHelperText>
-                                : null
-                            }
-                        </FormControl>
-                    </Grid>
+                    {
+                        contactFields?.map((item, index) => (
+                            <Grid item md={6} key={index}>
+                                <FormControl fullWidth sx={{ m: 1 }}>
+                                    <TextField
+                                        autoFocus={index === 1}
+                                        error={props?.formhandler?.formHandlerfields[index]?.isTouched && !props?.contactInformation[item.name]}
+                                        required
+                                        id={item?.id}
+                                        label={item?.label}
+                                        name={item?.name}
+                                        onChange={(e) => {
+                                            props?.setcontactInformation({ ...props?.contactInformation, [e.target.name]: e.target.value });
+                                            let fm = props?.formhandler;
+                                            fm.isDirty = true;
+                                            let fml = fm.formHandlerfields;
+                                            fml[index].isTouched = true;
+                                            fm.formHandlerfields = fml;
+                                            props?.setFormHandler(fm);
+                                        }}
+                                        defaultValue={props?.contactInformation[item.name]}
+                                    />
+                                    {props.contactInformation
+                                        && !props?.contactInformation[item?.name]
+                                        && props?.formhandler?.formHandlerfields[index]?.isTouched
+                                        ?
+                                        <FormHelperText id="component-helper-text" error>
+                                            {item.label} is Required
+                                        </FormHelperText>
+                                        : null
+                                    }
+                                </FormControl>
+                            </Grid>
+                        ))
+                    }
                 </Grid>
             </Box>
         </>

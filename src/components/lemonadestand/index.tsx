@@ -6,8 +6,9 @@ import Review from './Review';
 import StepperFooter from '../shared/Layout/StepperLayout/Footer';
 import StepperHeader from '../shared/Layout/StepperLayout/Header';
 import Contact from './Contact';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
+import ErrorKnockOutModal from '../shared/Modal';
 
 type LineItem = {
     productId: number,
@@ -16,11 +17,11 @@ type LineItem = {
 };
 
 type ContactInformation = {
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-}
+    firstName: string | undefined,
+    lastName: string | undefined,
+    email: string | undefined,
+    phone: string | undefined,
+};
 
 type Order = {
     firstName: string,
@@ -28,45 +29,149 @@ type Order = {
     email: string,
     phone: string,
     lineItems: Array<LineItem>;
+};
+
+type FormHandlerFields = {
+    name: string,
+    isTouched: boolean,
+};
+
+type FormHandler = {
+    formHasLoaded: boolean,
+    isDirty: boolean,
+    formHandlerfields: Array<FormHandlerFields>,
+};
+
+const formHandlerIninitialState: FormHandler = {
+    formHasLoaded: false,
+    isDirty: false,
+    formHandlerfields: [
+        { name: "firstName", isTouched: false },
+        { name: "lastName", isTouched: false },
+        { name: "email", isTouched: false },
+        { name: "phone", isTouched: false }
+    ]
+};
+
+const contactInformationIninitialState: ContactInformation = {
+    firstName: undefined,
+    lastName: undefined,
+    email: undefined,
+    phone: undefined,
+};
+
+type Error = {
+    isActive: boolean;
+    message: string;
 }
 
 const LemonadeStand = () => {
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [lineItems, setLineItem] = useState([] as Array<LineItem>);
-    const [contactInformation, setcontactInformation] = useState({} as ContactInformation);
-    const [hasError, setHasErrors] = useState<boolean>(false);
+    const [open, setOpen] = React.useState(false);
+    const [activeStep, setActiveStep] = React.useState<number>(0);
+    const [lineItems, setLineItem] = useState<Array<LineItem>>([]);
+    const [contactInformation, setcontactInformation] = useState<ContactInformation>(contactInformationIninitialState);
+    const [error, setErrors] = useState<Error>({} as Error);
+    const [formhandler, setFormHandler] = useState<FormHandler>(formHandlerIninitialState);
     const steps = ['Place Order', 'Customer Information', 'Review Order'];
+    const setFormhasLoadedTrue = () => {
+        formhandler.formHasLoaded = true;
+        setFormHandler(formhandler);
+    };
+
+    const setFormhasLoadedFalse = () => {
+        formhandler.formHasLoaded = false;
+        setFormHandler(formhandler);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        handleForcingerrorsonFields();
+    };
+
     const comps = [
-        React.createElement(Product, { lineItems, setLineItem, setHasErrors }),
-        React.createElement(Contact, { contactInformation, setcontactInformation }),
+        React.createElement(Product, { lineItems, setLineItem, error, setErrors }),
+        React.createElement(Contact,
+            {
+                contactInformation,
+                setcontactInformation,
+                formhandler,
+                setFormHandler,
+                setFormhasLoadedTrue,
+                setFormhasLoadedFalse,
+                activeStep,
+            }),
         React.createElement(Review)
     ];
+
+    const handleCheckinglineItem = () => {
+        return lineItems.filter((item, index) => {
+            return item.quantity > 0;
+        }).length === 0;
+    }
+
+    const handleCheckingcontactInformationononIsTouched = () => {
+        const contactInformationkeys = Object.keys(contactInformation as ContactInformation);
+        return formhandler?.formHandlerfields?.filter((item, index) => {
+            return (item.isTouched === true
+                && !contactInformation[contactInformationkeys[index]]);
+        }).length > 0;
+    }
+
+    const handleCheckingcontactInformation = () => {
+        const contactInformationkeys = Object.keys(contactInformation as ContactInformation);
+        return formhandler?.formHandlerfields?.filter((item, index) => {
+            return (item.isTouched === false && !contactInformation[contactInformationkeys[index]]);
+        }).length > 0;
+    }
+
+    const handleForcingerrorsonFields = () => {
+        var copyFormhandler = { ...formhandler };
+        Object.keys(contactInformation as ContactInformation).map((item, index) => {
+            if (!contactInformation[item]) {
+                copyFormhandler.formHandlerfields[index].isTouched = true;
+            }
+        });
+
+        setFormHandler(copyFormhandler);
+    }
 
     const handleNext = () => {
         console.log(lineItems);
         console.log(contactInformation);
+        console.log(formhandler);
 
-        /*         console.log('rrr', props?.lineItems);
-                const lineItemswithQuqntity = props?.lineItems?.filter((item, index) => {
-                    return parseInt(item?.quantity) > 0
-                });
-                console.log('rrr', lineItemswithQuqntity);
-        
-                //update specific line item
-                const lineItemIndex = lineItemswithQuqntity.findIndex(x => x.productId === product?.id);
-                const lineItemsCopy = [...lineItemswithQuqntity];
-                lineItemsCopy[lineItemIndex] = lineItemObject;
-                props?.setLineItem(lineItemsCopy); */
+        if (handleCheckinglineItem()) {
+            setErrors({
+                ...error,
+                isActive: true,
+                message: 'Please enter a quantity to proceed.'
+            });
+            setOpen(true);
+            return;
+        } else if (formhandler?.formHasLoaded && handleCheckingcontactInformationononIsTouched()) {
+            setErrors({
+                ...error,
+                isActive: true,
+                message: 'Please enter the required contact information.'
+            });
 
-        const filteredLineitems = lineItems.filter((item, index) => {
-            return item.quantity > 0;
-        });
+            setOpen(true);
+            return;
+        } else if (formhandler?.formHasLoaded && handleCheckingcontactInformation()) {
+            setErrors({
+                ...error,
+                isActive: true,
+                message: 'Please enter the required contact information.'
+            });
 
-        if (filteredLineitems.length === 0) {
-            setHasErrors(true);
+            setOpen(true);
             return;
         } else {
-            setHasErrors(false);
+            setErrors({
+                ...error,
+                isActive: false,
+                message: ''
+            });
         };
 
         if (activeStep === steps.length - 1) {
@@ -78,7 +183,14 @@ const LemonadeStand = () => {
     };
 
     const handleBack = () => {
+        const lastActiveStep = activeStep;
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        setErrors({
+            ...error,
+            isActive: false,
+            message: ''
+        });
+
     };
 
     const handleReset = () => {
@@ -91,11 +203,15 @@ const LemonadeStand = () => {
                 <>
                     <StepperHeader steps={steps} activeStep={activeStep} />
                     {
-                        (hasError)
+                        (error.isActive)
                             ?
-                            <Typography variant="button" color="#FF0000" display="block" gutterBottom align="center" mt={3}>
-                                Please enter a quantity to proceed.
-                            </Typography>
+                            <ErrorKnockOutModal
+                                open={open}
+                                setOpen={setOpen}
+                                title='Error'
+                                description={error.message}
+                                handleClose={handleClose}
+                            />
                             : null
                     }
                     {
