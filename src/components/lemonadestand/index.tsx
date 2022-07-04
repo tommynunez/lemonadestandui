@@ -276,7 +276,11 @@ const LemonadeStand = () => {
                 setFormhasLoadedFalse,
                 handleSettingFormhandlerFields,
             }),
-        React.createElement(Review)
+        React.createElement(Review,
+            {
+                contactInformation,
+                lineItems,
+            })
     ];
 
     return (
