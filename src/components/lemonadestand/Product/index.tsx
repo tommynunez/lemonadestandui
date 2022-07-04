@@ -46,7 +46,7 @@ const ProductCard = (props: any) => (
                         autoFocus={props?.index === 0}
                         defaultValue={props?.lineItems[props?.index]?.quantity}
                         onChange={(e: any) => {
-                            const value = e.target.value;
+                            const value = parseInt(e.target.value);
                             props?.handleSettingQuantity(value, props?.item, props?.index);
                             props?.handleSettingFormhandlerFields(props?.formhandler, props?.setFormHandler, props?.activeStep, props?.index);
                             const formsWithErrormessage = props?.formhandler?.forms[props?.activeStep]?.formFields.filter((item: TFormFields, index) => {
@@ -83,9 +83,9 @@ const Products = (props: any) => {
             let lineItemArr = [] as Array<LineItem>;
             data?.products?.map((item: Product, index: number) => {
                 let lineItemObject = {} as LineItem;
-                lineItemObject.cost = item?.amount;
+                lineItemObject.cost = parseFloat(item?.amount);
                 lineItemObject.productId = item?.id;
-                lineItemObject.quantity = props?.lineItems[index]?.quantity;
+                lineItemObject.quantity = props?.lineItems[index]?.quantity as number;
                 lineItemArr.push(lineItemObject);
             });
 
@@ -110,7 +110,7 @@ const Products = (props: any) => {
         let lineItemObject = {} as LineItem;
 
         const costAmount = parseFloat(product.amount) * quantity;
-        lineItemObject.cost = costAmount.toString();
+        lineItemObject.cost = costAmount;
         lineItemObject.productId = product.id;
         lineItemObject.quantity = quantity;
         return lineItemObject;

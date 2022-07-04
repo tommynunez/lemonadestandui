@@ -13,10 +13,12 @@ import { ErrorHandler } from '../../types/Error';
 import { FormHandler } from '../../types/FormHandler';
 import { TForm } from '../../types/TForm';
 import { useState } from 'react';
+import { ADD_ORDER } from '../../graphql/mutations/addOrder';
+import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const phoneNumberRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i;
-const digitsOnlyRegex = /^\d*\.?\d*$/;
 
 const formsInitialstate: Array<TForm> = [
     {
@@ -140,6 +142,9 @@ const LemonadeStand = () => {
     const [error, setErrors] = useState<ErrorHandler>({} as ErrorHandler);
     const [formhandler, setFormHandler] = useState<FormHandler>(formhandlerIninitialState);
 
+    const [addOrder, { loading }] = useMutation(ADD_ORDER);
+    const navigate = useNavigate();
+
     const setFormhasLoadedTrue = (formhandler: any, formIndex: number) => {
         formhandler.forms[formIndex].formHasLoaded = true;
         setFormHandler(formhandler);
@@ -227,10 +232,41 @@ const LemonadeStand = () => {
                 message: ''
             });
         };
-
+        console.log(lineItems)
         if (activeStep === steps.length - 1) {
             //Todo send data to server
             //reroute user to confirmation page
+
+            const totalCost = lineItems
+                .map((item: LineItem, index: number) => {
+                    const quantity = isNaN(lineItems[index]?.quantity) ? 0 : lineItems[index]?.quantity;
+                    const totalAmount = quantity * item.cost;
+                    return (totalAmount);
+                }).reduce((acc, value) => acc + value)
+                .toFixed(2);
+            addOrder(
+                {
+                    variables:
+                    {
+                        "order":
+                        {
+                            "firstName": contactInformation.firstName,
+                            "lastName": contactInformation.lastName,
+                            "email": contactInformation.email,
+                            "phone": contactInformation.phone,
+                            "totalCost": parseFloat(totalCost),
+                            "lineItems": lineItems,
+                        }
+                    }
+                }
+            ).then((response) => {
+                console.log(response);
+                if (response?.data?.insertOrder) {
+                    navigate("/confirmation");
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
             return;
         };
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
