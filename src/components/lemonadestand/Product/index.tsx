@@ -6,30 +6,10 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Grid, TextField, FormControl } from '@mui/material';
-
-type LineItem = {
-    productId: number,
-    quantity: number,
-    cost: string,
-};
-
-type Size = {
-    id: number,
-    name: string,
-};
-
-type LemonadeType = {
-    id: number,
-    name: string,
-};
-
-type Product = {
-    id: number,
-    size: Size,
-    lemonadeType: LemonadeType,
-    amount: string,
-};
+import { Grid, TextField, FormControl, FormHelperText } from '@mui/material';
+import { LineItem } from '../../../types/product/LineItem';
+import { Product } from '../../../types/product/Product';
+import { TFormFields } from '../../../types/TformFields';
 
 const ProductCard = (props: any) => (
     <Grid item md={6} sx={{ mt: 3 }}>
@@ -51,7 +31,11 @@ const ProductCard = (props: any) => (
             <CardActions>
                 <FormControl sx={{ m: 1, width: '8em' }}>
                     <TextField
-                        id="lemonade-quantity"
+                        id={`lemonade-quantity-${props?.index}`}
+                        name={`lemonade-quantity-${props?.index}`}
+                        error={props?.formhandler?.forms[props.activeStep]?.formFields[props?.index]?.isTouched
+                            && (props?.lineItems[props?.index]?.quantity === '0'
+                                || !props?.lineItems[props?.index]?.quantity)}
                         label="Quantity"
                         type="number"
                         InputProps={{
@@ -61,15 +45,37 @@ const ProductCard = (props: any) => (
                         }}
                         autoFocus={props?.index === 0}
                         defaultValue={props?.lineItems[props?.index]?.quantity}
-                        onChange={(e: any) => { props?.handleSettingQuantity(e.target.value, props?.item) }}
+                        onChange={(e: any) => {
+                            const value = e.target.value;
+                            props?.handleSettingQuantity(value, props?.item, props?.index);
+                            props?.handleSettingFormhandlerFields(props?.formhandler, props?.setFormHandler, props?.activeStep, props?.index);
+                            const formsWithErrormessage = props?.formhandler?.forms[props?.activeStep]?.formFields.filter((item: TFormFields, index) => {
+                                return item.isTouched === true
+                            });
+
+                            //only force all fields to clear error if erros exist in any field and if the vlaue is greater than 0
+                            if (value > 0 && formsWithErrormessage.length > 0) {
+                                props?.handleForcingIsTouchedonallFields(false)
+                            }
+                        }}
                     />
+                    {props?.lineItems
+                        && (props.lineItems[props?.index]?.quantity === '0'
+                            || !props.lineItems[props?.index]?.quantity)
+                        && props?.formhandler?.forms[props?.activeStep]?.formFields[props?.index]?.isTouched
+                        ?
+                        <FormHelperText id="component-helper-text" error>
+                            {props?.item?.lemonadeType.name} {props?.item?.size.name} is Required
+                        </FormHelperText>
+                        : null
+                    }
                 </FormControl>
             </CardActions>
         </Card>
     </Grid>
 );
 
-const Product = (props: any) => {
+const Products = (props: any) => {
     const { data, loading } = useQuery(GET_ALL_PRODUCTS);
 
     useEffect(() => {
@@ -87,6 +93,19 @@ const Product = (props: any) => {
         }
     }, [loading]);
 
+    useEffect(() => {
+        //set formhasLoaded to true on component mount
+        props?.setFormhasLoadedTrue(props?.formhandler, props?.activeStep);
+
+        //set formhasLoaded to false on component unmount
+        //this implementation helps with controlling the 
+        //error handled to is only appears on the current
+        //step in the stepper
+        return () => {
+            props?.setFormhasLoadedFalse(props?.formhandler, props?.activeStep);
+        }
+    }, []);
+
     const handleSettingLineItem = (quantity: number, product: Product) => {
         let lineItemObject = {} as LineItem;
 
@@ -97,7 +116,7 @@ const Product = (props: any) => {
         return lineItemObject;
     }
 
-    const handleSettingQuantity = (quantity: number, product: Product) => {
+    const handleSettingQuantity = (quantity: number, product: Product, index: number) => {
         let lineItemObject = {} as LineItem;
         const lineItem = props?.lineItems?.filter((item, index) => {
             return product.id === item?.productId;
@@ -105,8 +124,6 @@ const Product = (props: any) => {
 
         lineItemObject = handleSettingLineItem(quantity, product);
         if (lineItem.length > 0) {
-            console.log('rrr', props?.lineItems);
-
             //update specific line item
             const lineItemIndex = props?.lineItems?.findIndex(x => x.productId === product?.id);
             const lineItemsCopy = [...props?.lineItems];
@@ -119,12 +136,6 @@ const Product = (props: any) => {
             ]));
         }
 
-        if (lineItemObject.quantity > 0) {
-            props?.setErrors({
-                ...props.error,
-                isActive: false
-            });
-        }
     };
 
     return (
@@ -139,6 +150,11 @@ const Product = (props: any) => {
                                 handleSettingQuantity={handleSettingQuantity}
                                 lineItems={props?.lineItems}
                                 index={index}
+                                formhandler={props.formhandler}
+                                activeStep={props?.activeStep}
+                                setFormHandler={props.setFormHandler}
+                                handleSettingFormhandlerFields={props?.handleSettingFormhandlerFields}
+                                handleForcingIsTouchedonallFields={props?.handleForcingIsTouchedonallFields}
                             />
                         ))
                     }
@@ -148,4 +164,4 @@ const Product = (props: any) => {
     );
 }
 
-export default Product;
+export default Products;

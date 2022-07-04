@@ -1,70 +1,98 @@
 import { Box, FormControl, FormHelperText, Grid, TextField } from "@mui/material";
 import { useEffect } from "react";
-
-const contactFields = [
-    {
-        id: "firstName",
-        name: "firstName",
-        label: "First Name",
-    },
-    {
-        id: "lastName",
-        name: "lastName",
-        label: "Last Name",
-    },
-    {
-        id: "email",
-        name: "email",
-        label: "Email",
-    },
-    {
-        id: "phone",
-        name: "phone",
-        label: "Phone",
-    },
-]
+import { TFormFields } from "../../../types/TformFields";
 
 const Contact = (props: any) => {
+    const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const phoneNumberRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i;
+    const lettersOnlyRegex = /^[A-Za-z]+$/;;
+
     useEffect(() => {
-        props?.setFormhasLoadedTrue();
+        //set formhasLoaded to true on component mount
+        props?.setFormhasLoadedTrue(props?.formhandler, props?.activeStep);
+
+        //set formhasLoaded to false on component unmount
+        //this implementation helps with controlling the 
+        //error handled to is only appears on the current
+        //step in the stepper
         return () => {
-            props?.setFormhasLoadedFalse();
+            props?.setFormhasLoadedFalse(props?.formhandler, props?.activeStep);
         }
-        console.log('asdf', props?.formhandler);
     }, []);
+
+    const handleErrors = (formField) => {
+        switch (formField) {
+            case 'firstName':
+                break;
+            default:
+                break;
+        }
+    }
 
     return (
         <>
             <Box sx={{ flexGrow: 1, my: 10 }}>
                 <Grid container spacing={5} px={10}>
                     {
-                        contactFields?.map((item, index) => (
+                        props?.formhandler?.forms[props.activeStep]?.formFields?.map((item: TFormFields, index) => (
                             <Grid item md={6} key={index}>
                                 <FormControl fullWidth sx={{ m: 1 }}>
                                     <TextField
                                         autoFocus={index === 1}
-                                        error={props?.formhandler?.formHandlerfields[index]?.isTouched && !props?.contactInformation[item.name]}
+                                        error={
+                                            (props?.formhandler?.forms[props?.activeStep]?.formFields[index]?.isTouched
+                                                && !props?.contactInformation[item.formAttribute.name])
+                                            || (item.formAttribute.name === "email"
+                                                && props?.contactInformation[item.formAttribute.name]
+                                                && !emailRegex.test(props?.contactInformation[item?.formAttribute?.name]))
+                                            || (item.formAttribute.name === "phone"
+                                                && props?.contactInformation[item.formAttribute.name]
+                                                && !phoneNumberRegex.test(props?.contactInformation[item?.formAttribute?.name]))
+                                        }
                                         required
-                                        id={item?.id}
-                                        label={item?.label}
-                                        name={item?.name}
+                                        id={item?.formAttribute.id}
+                                        label={item?.formAttribute.label}
+                                        name={item?.formAttribute?.name}
                                         onChange={(e) => {
-                                            props?.setcontactInformation({ ...props?.contactInformation, [e.target.name]: e.target.value });
-                                            let fm = props?.formhandler;
-                                            fm.isDirty = true;
-                                            let fml = fm.formHandlerfields;
-                                            fml[index].isTouched = true;
-                                            fm.formHandlerfields = fml;
-                                            props?.setFormHandler(fm);
+                                            if (item?.formAttribute?.name === 'phone' && !lettersOnlyRegex.test(e.target.value)) {
+                                                props?.setcontactInformation({ ...props?.contactInformation, [e.target.name]: e.target.value });
+                                            }
+
+                                            if (item?.formAttribute?.name !== 'phone') {
+                                                props?.setcontactInformation({ ...props?.contactInformation, [e.target.name]: e.target.value });
+                                            }
+                                            props?.handleSettingFormhandlerFields(props?.formhandler, props?.setFormHandler, props?.activeStep, index);
                                         }}
-                                        defaultValue={props?.contactInformation[item.name]}
+                                        defaultValue={props?.contactInformation[item.formAttribute.name]}
                                     />
-                                    {props.contactInformation
-                                        && !props?.contactInformation[item?.name]
-                                        && props?.formhandler?.formHandlerfields[index]?.isTouched
+                                    {props?.contactInformation
+                                        && !props?.contactInformation[item?.formAttribute?.name]
+                                        && props?.formhandler?.forms[props?.activeStep]?.formFields[index]?.isTouched
                                         ?
                                         <FormHelperText id="component-helper-text" error>
-                                            {item.label} is Required
+                                            {item?.formAttribute?.label} is Required
+                                        </FormHelperText>
+                                        : null
+                                    }
+                                    {item.formAttribute.name === 'email'
+                                        && props?.contactInformation
+                                        && props?.contactInformation[item?.formAttribute?.name]
+                                        && !emailRegex.test(props?.contactInformation[item?.formAttribute?.name])
+                                        && props?.formhandler?.forms[props?.activeStep]?.formFields[index]?.isTouched
+                                        ?
+                                        <FormHelperText id="component-helper-text" error>
+                                            Please enter a proper email
+                                        </FormHelperText>
+                                        : null
+                                    }
+                                    {item.formAttribute.name === 'phone'
+                                        && props?.contactInformation
+                                        && props?.contactInformation[item?.formAttribute?.name]
+                                        && !phoneNumberRegex.test(props?.contactInformation[item?.formAttribute?.name])
+                                        && props?.formhandler?.forms[props?.activeStep]?.formFields[index]?.isTouched
+                                        ?
+                                        <FormHelperText id="component-helper-text" error>
+                                            Please enter a proper phone number xxx xxx-xxxx
                                         </FormHelperText>
                                         : null
                                     }

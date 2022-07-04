@@ -6,51 +6,116 @@ import Review from './Review';
 import StepperFooter from '../shared/Layout/StepperLayout/Footer';
 import StepperHeader from '../shared/Layout/StepperLayout/Header';
 import Contact from './Contact';
-import { useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
 import ErrorKnockOutModal from '../shared/Modal';
+import { ContactInformation } from '../../types/contact/ContactInformation';
+import { LineItem } from '../../types/product/LineItem';
+import { ErrorHandler } from '../../types/Error';
+import { FormHandler } from '../../types/FormHandler';
+import { TForm } from '../../types/TForm';
+import { useState } from 'react';
 
-type LineItem = {
-    productId: number,
-    quantity: number,
-    cost: string,
-};
+const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const phoneNumberRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i;
+const digitsOnlyRegex = /^\d*\.?\d*$/;
 
-type ContactInformation = {
-    firstName: string | undefined,
-    lastName: string | undefined,
-    email: string | undefined,
-    phone: string | undefined,
-};
+const formsInitialstate: Array<TForm> = [
+    {
+        name: "product",
+        formHasLoaded: false,
+        formFields: [
+            {
+                formAttribute:
+                {
+                    id: "lemonade-quantity-1",
+                    name: "lemonade-quantity-1",
+                    label: "Quantity",
+                },
+                isTouched: false,
 
-type Order = {
-    firstName: string,
-    lastName: string,
-    email: string,
-    phone: string,
-    lineItems: Array<LineItem>;
-};
+            },
+            {
+                formAttribute:
+                {
+                    id: "lemonade-quantity-2",
+                    name: "lemonade-quantity-2",
+                    label: "Quantity",
+                },
+                isTouched: false,
 
-type FormHandlerFields = {
-    name: string,
-    isTouched: boolean,
-};
+            },
+            {
+                formAttribute:
+                {
+                    id: "lemonade-quantity-3",
+                    name: "lemonade-quantity-3",
+                    label: "Quantity",
+                },
+                isTouched: false,
 
-type FormHandler = {
-    formHasLoaded: boolean,
-    isDirty: boolean,
-    formHandlerfields: Array<FormHandlerFields>,
-};
+            },
+            {
+                formAttribute:
+                {
+                    id: "lemonade-quantity-4",
+                    name: "lemonade-quantity-4",
+                    label: "Quantity",
+                },
+                isTouched: false,
 
-const formHandlerIninitialState: FormHandler = {
-    formHasLoaded: false,
+            },
+        ]
+    },
+    {
+        name: "contact",
+        formHasLoaded: false,
+        formFields: [
+            {
+                formAttribute:
+                {
+                    id: "firstName",
+                    name: "firstName",
+                    label: "First Name",
+                },
+                isTouched: false,
+
+            },
+            {
+                formAttribute:
+                {
+                    id: "lastName",
+                    name: "lastName",
+                    label: "Last Name",
+                },
+                isTouched: false,
+
+            },
+            {
+                formAttribute:
+                {
+                    id: "email",
+                    name: "email",
+                    label: "Email",
+                },
+                isTouched: false,
+
+            },
+            {
+                formAttribute:
+                {
+                    id: "phone",
+                    name: "phone",
+                    label: "Phone",
+                },
+                isTouched: false,
+
+            },
+        ]
+    },
+];
+
+const formhandlerIninitialState: FormHandler = {
     isDirty: false,
-    formHandlerfields: [
-        { name: "firstName", isTouched: false },
-        { name: "lastName", isTouched: false },
-        { name: "email", isTouched: false },
-        { name: "phone", isTouched: false }
-    ]
+    forms: formsInitialstate,
 };
 
 const contactInformationIninitialState: ContactInformation = {
@@ -60,48 +125,59 @@ const contactInformationIninitialState: ContactInformation = {
     phone: undefined,
 };
 
-type Error = {
-    isActive: boolean;
-    message: string;
-}
-
 const LemonadeStand = () => {
+    //modal state
     const [open, setOpen] = React.useState(false);
+    //stepper state
     const [activeStep, setActiveStep] = React.useState<number>(0);
-    const [lineItems, setLineItem] = useState<Array<LineItem>>([]);
-    const [contactInformation, setcontactInformation] = useState<ContactInformation>(contactInformationIninitialState);
-    const [error, setErrors] = useState<Error>({} as Error);
-    const [formhandler, setFormHandler] = useState<FormHandler>(formHandlerIninitialState);
     const steps = ['Place Order', 'Customer Information', 'Review Order'];
-    const setFormhasLoadedTrue = () => {
-        formhandler.formHasLoaded = true;
+    //product step state
+    const [lineItems, setLineItem] = useState<Array<LineItem>>([]);
+    //contact step state
+    const [contactInformation, setcontactInformation] = useState<ContactInformation>(contactInformationIninitialState);
+
+    //Form handler state
+    const [error, setErrors] = useState<ErrorHandler>({} as ErrorHandler);
+    const [formhandler, setFormHandler] = useState<FormHandler>(formhandlerIninitialState);
+
+    const setFormhasLoadedTrue = (formhandler: any, formIndex: number) => {
+        formhandler.forms[formIndex].formHasLoaded = true;
         setFormHandler(formhandler);
     };
 
-    const setFormhasLoadedFalse = () => {
-        formhandler.formHasLoaded = false;
+    const setFormhasLoadedFalse = (formhandler: any, formIndex: number) => {
+        formhandler.forms[formIndex].formHasLoaded = false;
         setFormHandler(formhandler);
     };
 
     const handleClose = () => {
         setOpen(false);
-        handleForcingerrorsonFields();
+        handleForcingIsTouchedonallFields(true);
     };
 
-    const comps = [
-        React.createElement(Product, { lineItems, setLineItem, error, setErrors }),
-        React.createElement(Contact,
-            {
-                contactInformation,
-                setcontactInformation,
-                formhandler,
-                setFormHandler,
-                setFormhasLoadedTrue,
-                setFormhasLoadedFalse,
-                activeStep,
-            }),
-        React.createElement(Review)
-    ];
+    const handleSettingFormhandlerFields = (formhandler: FormHandler, setFormHandler: any, activeStep: number, index: number) => {
+        formhandler.isDirty = true;
+        let form = formhandler?.forms[activeStep];
+        let fields = form?.formFields;
+        fields[index].isTouched = true;
+        form.formFields = fields;
+        setFormHandler(formhandler);
+    }
+
+    const handleForcingIsTouchedonallFields = (value: boolean) => {
+        var copyFormhandler = { ...formhandler };
+        copyFormhandler.forms[activeStep].formFields.map((item: any, index) => {
+            if (activeStep === 0 && (!lineItems[item]?.quantity || lineItems[index]?.quantity === 0)) {
+                item.isTouched = value;
+            }
+
+            if (activeStep === 1 && !contactInformation[index]) {
+                item.isTouched = value;
+            }
+        });
+
+        setFormHandler(copyFormhandler);
+    }
 
     const handleCheckinglineItem = () => {
         return lineItems.filter((item, index) => {
@@ -109,38 +185,23 @@ const LemonadeStand = () => {
         }).length === 0;
     }
 
-    const handleCheckingcontactInformationononIsTouched = () => {
+    const handleValidatingcontactInformation = () => {
         const contactInformationkeys = Object.keys(contactInformation as ContactInformation);
-        return formhandler?.formHandlerfields?.filter((item, index) => {
-            return (item.isTouched === true
-                && !contactInformation[contactInformationkeys[index]]);
+        return formhandler?.forms[activeStep]?.formFields?.filter((item, index) => {
+            return (!contactInformation[contactInformationkeys[index]]
+                || (contactInformationkeys[index] === "email"
+                    && !emailRegex.test(contactInformation[contactInformationkeys[index]]))
+                || (contactInformationkeys[index] === "phone"
+                    && !phoneNumberRegex.test(contactInformation[contactInformationkeys[index]])));
         }).length > 0;
-    }
-
-    const handleCheckingcontactInformation = () => {
-        const contactInformationkeys = Object.keys(contactInformation as ContactInformation);
-        return formhandler?.formHandlerfields?.filter((item, index) => {
-            return (item.isTouched === false && !contactInformation[contactInformationkeys[index]]);
-        }).length > 0;
-    }
-
-    const handleForcingerrorsonFields = () => {
-        var copyFormhandler = { ...formhandler };
-        Object.keys(contactInformation as ContactInformation).map((item, index) => {
-            if (!contactInformation[item]) {
-                copyFormhandler.formHandlerfields[index].isTouched = true;
-            }
-        });
-
-        setFormHandler(copyFormhandler);
     }
 
     const handleNext = () => {
-        console.log(lineItems);
-        console.log(contactInformation);
-        console.log(formhandler);
+        const form = formhandler?.forms[activeStep];
 
-        if (handleCheckinglineItem()) {
+        if (activeStep === 0
+            && form.formHasLoaded
+            && handleCheckinglineItem()) {
             setErrors({
                 ...error,
                 isActive: true,
@@ -148,20 +209,13 @@ const LemonadeStand = () => {
             });
             setOpen(true);
             return;
-        } else if (formhandler?.formHasLoaded && handleCheckingcontactInformationononIsTouched()) {
+        } else if (activeStep === 1
+            && form.formHasLoaded
+            && handleValidatingcontactInformation()) {
             setErrors({
                 ...error,
                 isActive: true,
-                message: 'Please enter the required contact information.'
-            });
-
-            setOpen(true);
-            return;
-        } else if (formhandler?.formHasLoaded && handleCheckingcontactInformation()) {
-            setErrors({
-                ...error,
-                isActive: true,
-                message: 'Please enter the required contact information.'
+                message: 'Please enter a value for the required fields in the correct format.'
             });
 
             setOpen(true);
@@ -183,7 +237,6 @@ const LemonadeStand = () => {
     };
 
     const handleBack = () => {
-        const lastActiveStep = activeStep;
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
         setErrors({
             ...error,
@@ -196,6 +249,35 @@ const LemonadeStand = () => {
     const handleReset = () => {
         setActiveStep(0);
     };
+
+    const comps = [
+        React.createElement(Product,
+            {
+                form: "product",
+                activeStep,
+                lineItems,
+                setLineItem,
+                formhandler,
+                setFormHandler,
+                setFormhasLoadedTrue,
+                setFormhasLoadedFalse,
+                handleSettingFormhandlerFields,
+                handleForcingIsTouchedonallFields
+            }),
+        React.createElement(Contact,
+            {
+                form: "contact",
+                activeStep,
+                contactInformation,
+                setcontactInformation,
+                formhandler,
+                setFormHandler,
+                setFormhasLoadedTrue,
+                setFormhasLoadedFalse,
+                handleSettingFormhandlerFields,
+            }),
+        React.createElement(Review)
+    ];
 
     return (
         <StyledLanding>
