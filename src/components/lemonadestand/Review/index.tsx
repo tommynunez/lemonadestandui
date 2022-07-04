@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { LineItem } from '../../../types/product/LineItem';
 import { ContactInformation } from '../../../types/contact/ContactInformation';
-import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { GET_ALL_PRODUCTS } from '../../../graphql/queries/getAllProducts';
 import { useQuery } from '@apollo/client';
 import { Product } from '../../../types/product/Product';
@@ -15,9 +15,27 @@ const Review = (props: ReviewProps) => {
     const { data, loading } = useQuery(GET_ALL_PRODUCTS);
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="md" disableGutters={true}>
             <h2 style={{ textAlign: "center" }}>Review your order</h2>
             <Paper>
+                <Typography mx={2} gutterBottom variant="h5">
+                    First Name:{' '}
+                    {props?.contactInformation.firstName}
+                </Typography>
+                <Typography mx={2} gutterBottom variant="h5">
+                    Last Name:{' '}
+                    {props?.contactInformation.lastName}
+                </Typography>
+
+                <Typography mx={2} gutterBottom variant="h5">
+                    Email Address:{' '}
+                    {props?.contactInformation.email}
+                </Typography>
+
+                <Typography mx={2} gutterBottom variant="h5">
+                    Phone Number:{' '}
+                    {props?.contactInformation.phone}
+                </Typography>
                 <TableContainer>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
