@@ -27,7 +27,7 @@ const Routing = () => {
         },
         {
             path: "/management/lemonadetype",
-            element: <ManagementLayout element={<LemonadeType />}></ManagementLayout>,
+            element: <ManagementLayout index element={<LemonadeType />}></ManagementLayout>,
         },
         {
             path: "/management/lemonadetype/details/:id",

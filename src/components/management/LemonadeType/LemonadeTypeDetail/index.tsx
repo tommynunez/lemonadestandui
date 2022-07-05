@@ -1,8 +1,7 @@
-import { useMutation, useQuery } from "@apollo/client";
-import { SignalWifiStatusbarConnectedNoInternet4Outlined } from "@mui/icons-material";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { Box, Button, FormControl, Grid, Skeleton, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ADD_LEMONADE_TYPE } from "../../../../graphql/mutations/AddSize";
 import { UPDATE_LEMONADE_TYPE } from "../../../../graphql/mutations/updateLemonadeType";
 import { GET_LEMONADE_TYPE_ID } from "../../../../graphql/queries/getLemonadeTypeById";
@@ -27,25 +26,31 @@ const formsInitialstate: TForm = {
 };
 
 const LemonadeTypeDetail = () => {
-    const [lemonadeType, setLemonadeType] = useState<LemonadeType>();
+    const [lemonadeType, setLemonadeType] = useState<LemonadeType>({} as LemonadeType);
     const [lemonadeTypeform, setLemonadeTypeform] = useState<TForm>(formsInitialstate);
     const { id } = useParams();
-    const { data, loading } = useQuery(GET_LEMONADE_TYPE_ID, {
-        variables: {
-            id: parseInt(id!),
-        },
-    });
+    const [getLemonadetype, { loading }] = useLazyQuery(GET_LEMONADE_TYPE_ID);
     const [addLemonadeType, { loading: loadingAddOrder }] = useMutation(ADD_LEMONADE_TYPE);
     const [updateLemonadeType, { loading: loadingUpdateOrder }] = useMutation(UPDATE_LEMONADE_TYPE);
-    const navigate = useNavigate();
 
     useEffect(() => {
-        if (id && parseInt(id) > 0 && !loading
-            && data?.retrieveLemonadeTypeById) {
-            setLemonadeType(data.retrieveLemonadeTypeById);
+        if (id && parseInt(id) > 0 && !loading) {
+            getLemonadetype({
+                variables: {
+                    id: parseInt(id!),
+                }
+            }).then((response) => {
+                setLemonadeType(response?.data?.retrieveLemonadeTypeById);
+            }).catch((error) => {
+                console.log(error);
+            });
         }
-    }, [id, data]);
-    console.log(id)
+    }, [id]);
+
+    useEffect(() => {
+        console.log(lemonadeType)
+    }, [lemonadeType]);
+
     const handleSubmit = () => {
         if (parseInt(id!) === 0 || !lemonadeType) {
             addLemonadeType(
@@ -61,7 +66,7 @@ const LemonadeTypeDetail = () => {
             ).then((response) => {
                 console.log(response);
                 if (response?.data?.insertLemonadeType) {
-                    navigate("/management/lemonadeType");
+                    window.location.href = "/management/lemonadeType";
                 }
             }).catch((error) => {
                 console.log(error);
@@ -81,7 +86,7 @@ const LemonadeTypeDetail = () => {
             ).then((response) => {
                 console.log(response);
                 if (response?.data?.updateLemonadeType) {
-                    navigate("/management/lemonadeType");
+                    window.location.href = "/management/lemonadeType";
                 }
             }).catch((error) => {
                 console.log(error);
@@ -102,18 +107,23 @@ const LemonadeTypeDetail = () => {
                         </Grid>
                         {
 
-                            (parseInt(id!) > 0 && !loading && lemonadeType)
+                            (!loading && lemonadeType)
                                 ?
                                 lemonadeTypeform.formFields?.map((item: TFormFields, index: number) => (
                                     <Grid item md={6} key={index}>
                                         <FormControl fullWidth sx={{ my: 1 }}>
                                             <TextField
+                                                onKeyDown={(e) => {
+                                                    if (e.key === "Enter") {
+                                                        handleSubmit();
+                                                    }
+                                                }}
                                                 required
                                                 id={item?.formAttribute?.id}
                                                 autoFocus={index === 0}
                                                 name={item?.formAttribute?.name}
                                                 label={item?.formAttribute?.label}
-                                                defaultValue={lemonadeType![item?.formAttribute?.name]}
+                                                value={(lemonadeType![item?.formAttribute?.name]) ? lemonadeType![item?.formAttribute?.name] : ''}
                                                 onChange={(e) => {
                                                     const value = e.target.value;
                                                     let lt = { ...lemonadeType };
@@ -143,7 +153,7 @@ const LemonadeTypeDetail = () => {
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                onClick={() => navigate("/management/lemonadetype/")}>
+                                onClick={() => window.location.href = "/management/lemonadetype/"}>
                                 Go Back
                             </Button>
                         </Grid>

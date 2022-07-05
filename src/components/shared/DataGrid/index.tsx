@@ -19,6 +19,10 @@ const ManagementGrid = (props: any) => {
         props?.handleUseEffect(loading, data);
     }, [loading]);
 
+    useEffect(() => {
+        console.log('asdf');
+    }, []);
+
     return (
         <>
             <Box sx={{ height: 400, width: '100%' }}>
