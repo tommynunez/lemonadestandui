@@ -1,6 +1,6 @@
 import { Box, FormControl, FormHelperText, Grid, TextField } from "@mui/material";
 import { useEffect } from "react";
-import { TFormFields } from "../../../types/TformFields";
+import { TFormFields } from "../../../types/TFormFields";
 
 const Contact = (props: any) => {
     const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -50,8 +50,8 @@ const Contact = (props: any) => {
                                                 && !phoneNumberRegex.test(props?.contactInformation[item?.formAttribute?.name]))
                                         }
                                         required
-                                        id={item?.formAttribute.id}
-                                        label={item?.formAttribute.label}
+                                        id={item?.formAttribute?.id}
+                                        label={item?.formAttribute?.label}
                                         name={item?.formAttribute?.name}
                                         onChange={(e) => {
                                             if (item?.formAttribute?.name === 'phone' && !lettersOnlyRegex.test(e.target.value)) {

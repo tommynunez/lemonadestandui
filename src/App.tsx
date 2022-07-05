@@ -1,11 +1,12 @@
 import Layout from './components/shared/Layout'
+import Routing from './components/shared/Routes'
 
-function App() {
+const App = () => {
   return (
     <>
-      <Layout />
+      <Routing />
     </>
   )
-}
+};
 
-export default App
+export default App;

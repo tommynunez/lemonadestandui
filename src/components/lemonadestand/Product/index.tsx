@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Grid, TextField, FormControl, FormHelperText } from '@mui/material';
 import { LineItem } from '../../../types/product/LineItem';
 import { Product } from '../../../types/product/Product';
-import { TFormFields } from '../../../types/TformFields';
+import { TFormFields } from '../../../types/TFormFields';
 
 const ProductCard = (props: any) => (
     <Grid item md={6} sx={{ mt: 3 }}>

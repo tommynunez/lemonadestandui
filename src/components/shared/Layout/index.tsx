@@ -1,9 +1,10 @@
 import { Container } from "@mui/material";
+import LemonadeStand from "../../lemonadestand";
 import Routing from "../Routes";
 import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = () => {
+const Layout = (props: any) => {
     return (
         <Container
             disableGutters={true}
@@ -12,7 +13,7 @@ const Layout = () => {
             <Header />
             <Container
             >
-                <Routing />
+                {props?.element}
             </Container>
             <Footer description={"Welcome to Lemonade Stand"} title={"Lemonade Stand"} />
         </Container>

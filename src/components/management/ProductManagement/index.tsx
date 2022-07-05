@@ -1,37 +1,51 @@
+import { useQuery } from "@apollo/client";
 import { Box, Typography } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
-import { useState } from "react";
-import { GET_ALL_SIZES } from "../../../graphql/queries/getAllSizes";
+import { useEffect, useState } from "react";
+import { GET_ALL_PRODUCTS } from "../../../graphql/queries/getAllProducts";
 import ManagementGrid from "../../shared/DataGrid";
 
 const columns: GridColDef[] = [
     {
         field: 'id',
-        headerName: 'ID',
-        width: 90,
+        headerName: 'id',
+        width: 50,
         editable: false,
     },
     {
-        field: 'name',
-        headerName: 'Name',
+        field: 'amount',
+        headerName: 'Amount',
+        width: 150,
+        editable: false,
+    },
+    {
+        field: 'lemonadetypename',
+        headerName: 'Lemonade Type Name',
+        width: 200,
+        editable: false,
+    },
+    {
+        field: 'sizename',
+        headerName: 'Size Name',
         width: 150,
         editable: false,
     },
 ];
 
-
-const Size = () => {
+const ProductManagement = () => {
     const [rows, setRows] = useState([]);
     const [pageIndex, setPageIndex] = useState(0);
     const [pageSize, setPageSize] = useState(10);
 
     const handleUseEffect = (loading: boolean, data: any) => {
         let rowsArray = [] as any;
-        if (!loading && data?.retrieveAllSizes?.length > 0) {
-            data?.retrieveAllSizes?.map((item, index) => {
+        if (!loading && data?.products?.length > 0) {
+            data?.products?.map((item, index) => {
                 const rowObject = {
                     id: item.id,
-                    name: item.name,
+                    amount: item.amount,
+                    lemonadetypename: item.lemonadeType.name,
+                    sizename: item.size.name
                 };
                 rowsArray?.push(rowObject);
             });
@@ -42,18 +56,18 @@ const Size = () => {
     return (
         <Box sx={{ height: 400, width: '100%' }}>
             <Typography variant="h4">
-                Sizes
+                Products
             </Typography>
             <ManagementGrid
                 rows={rows}
                 columns={columns}
                 pageSize={pageSize}
                 pageIndex={pageIndex}
-                query={GET_ALL_SIZES}
+                query={GET_ALL_PRODUCTS}
                 handleUseEffect={handleUseEffect}
             />
         </Box>
     );
 };
 
-export default Size;
+export default ProductManagement;
