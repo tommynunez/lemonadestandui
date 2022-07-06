@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { ADD_PRODUCT } from "../../../../graphql/mutations/addProduct";
 import { UPDATE_PRODUCT } from "../../../../graphql/mutations/updateProduct";
 import { GET_ALL_LEMONADE_TYPES } from "../../../../graphql/queries/getAllLemonadeTypes";
-import { GET_ALL_PRODUCTS } from "../../../../graphql/queries/getAllProducts";
 import { GET_ALL_SIZES } from "../../../../graphql/queries/getAllSizes";
 import { GET_PRODUCT_BY_ID } from "../../../../graphql/queries/getProductById";
 import { Product } from "../../../../types/product/Product";
@@ -245,7 +244,6 @@ const ProductManagementDetails = () => {
                                                             error={item?.isTouched
                                                                 && (product[item.formAttribute.name]! === 0 || !product[item.formAttribute.name]!)}
                                                             onChange={(e) => {
-                                                                console.log('test', e.target.value)
                                                                 const value = e.target.value;
                                                                 if (item?.formAttribute.name === "size") {
                                                                     setProduct({
