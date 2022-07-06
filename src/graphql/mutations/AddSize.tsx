@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const ADD_LEMONADE_TYPE = gql`
-    mutation addLemonadeType($lemonadeType: LemonadeTypeInput!) {
-        insertLemonadeType(lemonadeType: $lemonadeType)
+export const ADD_SIZE = gql`
+    mutation addSize($size: SizeInput!) {
+        insertSize(size: $size)
     }
 `;

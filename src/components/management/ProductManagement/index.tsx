@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { GET_ALL_PRODUCTS } from "../../../graphql/queries/getAllProducts";
 import ManagementGrid from "../../shared/DataGrid";
 
@@ -36,6 +37,7 @@ const ProductManagement = () => {
     const [rows, setRows] = useState([]);
     const [pageIndex, setPageIndex] = useState(0);
     const [pageSize, setPageSize] = useState(10);
+    const navigate = useNavigate();
 
     const handleUseEffect = (loading: boolean, data: any) => {
         let rowsArray = [] as any;
@@ -58,6 +60,12 @@ const ProductManagement = () => {
             <Typography variant="h4">
                 Products
             </Typography>
+            <Button
+                sx={{ my: 3 }}
+                variant="contained"
+                onClick={() => { navigate("/management/lemonadetype/details/0") }}>
+                Add Product
+            </Button>
             <ManagementGrid
                 rows={rows}
                 columns={columns}

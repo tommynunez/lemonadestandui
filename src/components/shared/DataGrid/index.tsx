@@ -32,7 +32,11 @@ const ManagementGrid = (props: any) => {
                     pageSize={props?.pageSize}
                     rowsPerPageOptions={[props?.pageSize]}
                     onRowClick={(newSelection) => {
-                        return navigate(props?.path + newSelection.id);
+                        if (props?.path) {
+                            return navigate(props?.path + newSelection.id);
+                        }
+
+                        return;
                     }}
                 />
             </Box>

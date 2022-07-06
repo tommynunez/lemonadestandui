@@ -5,9 +5,12 @@ import Confirmation from '../../lemonadestand/Confirmation';
 import Management from '../../management';
 import LemonadeType from '../../management/LemonadeType';
 import LemonadeTypeDetail from '../../management/LemonadeType/LemonadeTypeDetail';
-import Order from '../../management/Orders';
+import Orders from '../../management/Orders';
+import Order from '../../management/Orders/test/testindex';
 import ProductManagement from '../../management/ProductManagement';
+import ProductManagementDetails from '../../management/ProductManagement/ProductManagemenetDetails';
 import Size from '../../management/Size';
+import SizeDetail from '../../management/Size/SizeDetail';
 import Layout from '../Layout';
 import ManagementLayout from '../Layout/ManagmentLayout';
 
@@ -16,6 +19,10 @@ const Routing = () => {
         {
             path: "/",
             element: <Landing />,
+        },
+        {
+            path: "/storefront/confirmation",
+            element: <Confirmation />,
         },
         {
             path: "/storefront",
@@ -38,12 +45,20 @@ const Routing = () => {
             element: <ManagementLayout element={<Size />}></ManagementLayout>,
         },
         {
+            path: "/management/size/details/:id",
+            element: <ManagementLayout element={<SizeDetail />}></ManagementLayout>,
+        },
+        {
             path: "/management/product",
             element: <ManagementLayout element={<ProductManagement />}></ManagementLayout>,
         },
         {
+            path: "/management/product/details/:id",
+            element: <ManagementLayout element={<ProductManagementDetails />}></ManagementLayout>,
+        },
+        {
             path: "/management/order",
-            element: <ManagementLayout element={<Order />}></ManagementLayout>,
+            element: <ManagementLayout element={<Orders />}></ManagementLayout>,
         },
     ]);
 

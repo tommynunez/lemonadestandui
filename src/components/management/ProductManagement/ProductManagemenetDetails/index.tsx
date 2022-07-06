@@ -25,7 +25,7 @@ const formsInitialstate: TForm = {
     ],
 };
 
-const LemonadeTypeDetail = () => {
+const ProductManagementDetails = () => {
     const [lemonadeType, setLemonadeType] = useState<LemonadeType>({} as LemonadeType);
     const [lemonadeTypeform, setLemonadeTypeform] = useState<TForm>(formsInitialstate);
     const { id } = useParams();
@@ -165,4 +165,4 @@ const LemonadeTypeDetail = () => {
     );
 };
 
-export default LemonadeTypeDetail;
+export default ProductManagementDetails;

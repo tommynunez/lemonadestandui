@@ -2,15 +2,15 @@ import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { Box, Button, FormControl, Grid, Skeleton, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ADD_LEMONADE_TYPE } from "../../../../graphql/mutations/addLemonadetype";
-import { UPDATE_LEMONADE_TYPE } from "../../../../graphql/mutations/updateLemonadeType";
-import { GET_LEMONADE_TYPE_ID } from "../../../../graphql/queries/getLemonadeTypeById";
-import { LemonadeType } from "../../../../types/product/LemonadeType";
+import { ADD_SIZE } from "../../../../graphql/mutations/addSize";
+import { UPDATE_SIZE } from "../../../../graphql/mutations/updateSize";
+import { GET_SIZE_ID } from "../../../../graphql/queries/getSizeById";
+import { Size } from "../../../../types/product/Size";
 import { TForm } from "../../../../types/TForm";
 import { TFormFields } from "../../../../types/TFormFields";
 
 const formsInitialstate: TForm = {
-    name: "lemonade type",
+    name: "Size",
     formHasLoaded: false,
     formFields: [
         {
@@ -25,22 +25,22 @@ const formsInitialstate: TForm = {
     ],
 };
 
-const LemonadeTypeDetail = () => {
-    const [lemonadeType, setLemonadeType] = useState<LemonadeType>({} as LemonadeType);
-    const [lemonadeTypeform, setLemonadeTypeform] = useState<TForm>(formsInitialstate);
+const SizeDetail = () => {
+    const [size, setSize] = useState<Size>({} as Size);
+    const [sizeform, setSizeform] = useState<TForm>(formsInitialstate);
     const { id } = useParams();
-    const [getLemonadetype, { loading }] = useLazyQuery(GET_LEMONADE_TYPE_ID);
-    const [addLemonadeType, { loading: loadingAddOrder }] = useMutation(ADD_LEMONADE_TYPE);
-    const [updateLemonadeType, { loading: loadingUpdateOrder }] = useMutation(UPDATE_LEMONADE_TYPE);
+    const [getSizebyID, { loading }] = useLazyQuery(GET_SIZE_ID);
+    const [addSize, { loading: loadingAddOrder }] = useMutation(ADD_SIZE);
+    const [updateSize, { loading: loadingUpdateOrder }] = useMutation(UPDATE_SIZE);
 
     useEffect(() => {
         if (id && parseInt(id) > 0 && !loading) {
-            getLemonadetype({
+            getSizebyID({
                 variables: {
                     id: parseInt(id!),
                 }
             }).then((response) => {
-                setLemonadeType(response?.data?.retrieveLemonadeTypeById);
+                setSize(response?.data?.retrieveSizeTypeById);
             }).catch((error) => {
                 console.log(error);
             });
@@ -48,45 +48,45 @@ const LemonadeTypeDetail = () => {
     }, [id]);
 
     useEffect(() => {
-        console.log(lemonadeType)
-    }, [lemonadeType]);
+        console.log(size)
+    }, [size]);
 
     const handleSubmit = () => {
-        if (parseInt(id!) === 0 || !lemonadeType) {
-            addLemonadeType(
+        if (parseInt(id!) === 0 || !size) {
+            addSize(
                 {
                     variables:
                     {
-                        "lemonadeType": {
+                        "size": {
                             id: 0,
-                            "name": lemonadeType?.name,
+                            "name": size?.name,
                         },
                     },
                 }
             ).then((response) => {
                 console.log(response);
-                if (response?.data?.insertLemonadeType) {
-                    window.location.href = "/management/lemonadeType";
+                if (response?.data?.insertSize) {
+                    window.location.href = "/management/size";
                 }
             }).catch((error) => {
                 console.log(error);
             });
         } else {
-            updateLemonadeType(
+            updateSize(
                 {
                     variables:
                     {
                         "id": parseInt(id!),
-                        "lemonadeType": {
+                        "size": {
                             "id": parseInt(id!),
-                            "name": lemonadeType?.name
+                            "name": size?.name
                         },
                     },
                 }
             ).then((response) => {
                 console.log(response);
-                if (response?.data?.updateLemonadeType) {
-                    window.location.href = "/management/lemonadeType";
+                if (response?.data?.updateSize) {
+                    window.location.href = "/management/size";
                 }
             }).catch((error) => {
                 console.log(error);
@@ -102,14 +102,14 @@ const LemonadeTypeDetail = () => {
                     <Grid container spacing={5} px={5}>
                         <Grid item xs={12}>
                             <Typography variant="h4">
-                                Lemonade Type Detail
+                                Size Detail
                             </Typography>
                         </Grid>
                         {
 
-                            (!loading && lemonadeType)
+                            (!loading && size)
                                 ?
-                                lemonadeTypeform.formFields?.map((item: TFormFields, index: number) => (
+                                sizeform.formFields?.map((item: TFormFields, index: number) => (
                                     <Grid item md={6} key={index}>
                                         <FormControl fullWidth sx={{ my: 1 }}>
                                             <TextField
@@ -123,12 +123,12 @@ const LemonadeTypeDetail = () => {
                                                 autoFocus={index === 0}
                                                 name={item?.formAttribute?.name}
                                                 label={item?.formAttribute?.label}
-                                                value={(lemonadeType![item?.formAttribute?.name]) ? lemonadeType![item?.formAttribute?.name] : ''}
+                                                value={(size![item?.formAttribute?.name]) ? size![item?.formAttribute?.name] : ''}
                                                 onChange={(e) => {
                                                     const value = e.target.value;
-                                                    let lt = { ...lemonadeType };
-                                                    lt.name = value;
-                                                    setLemonadeType(lt);
+                                                    let sz = { ...size };
+                                                    sz.name = value;
+                                                    setSize(sz);
                                                 }}
                                             />
                                         </FormControl>
@@ -153,7 +153,7 @@ const LemonadeTypeDetail = () => {
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                onClick={() => window.location.href = "/management/lemonadetype/"}>
+                                onClick={() => window.location.href = "/management/size/"}>
                                 Go Back
                             </Button>
                         </Grid>
@@ -165,4 +165,4 @@ const LemonadeTypeDetail = () => {
     );
 };
 
-export default LemonadeTypeDetail;
+export default SizeDetail;
