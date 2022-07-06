@@ -1,4 +1,4 @@
-import { TFormFields } from "./TformFields";
+import { TFormFields } from "./TFormFields";
 
 export type TForm = {
     name: string,

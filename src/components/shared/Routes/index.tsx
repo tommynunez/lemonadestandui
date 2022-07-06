@@ -6,7 +6,6 @@ import Management from '../../management';
 import LemonadeType from '../../management/LemonadeType';
 import LemonadeTypeDetail from '../../management/LemonadeType/LemonadeTypeDetail';
 import Orders from '../../management/Orders';
-import Order from '../../management/Orders/test/testindex';
 import ProductManagement from '../../management/ProductManagement';
 import ProductManagementDetails from '../../management/ProductManagement/ProductManagemenetDetails';
 import Size from '../../management/Size';

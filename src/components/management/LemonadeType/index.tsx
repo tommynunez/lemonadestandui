@@ -25,8 +25,6 @@ const columns: GridColDef[] = [
 
 const LemonadeType = () => {
     const [rows, setRows] = useState([]);
-    const [pageIndex, setPageIndex] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
     const navigate = useNavigate();
 
     const handleUseEffect = (loading: boolean, data: any) => {
@@ -57,8 +55,6 @@ const LemonadeType = () => {
             <ManagementGrid
                 rows={rows}
                 columns={columns}
-                pageSize={pageSize}
-                pageIndex={pageIndex}
                 query={GET_ALL_LEMONADE_TYPES}
                 handleUseEffect={handleUseEffect}
                 path="/management/lemonadetype/details/"

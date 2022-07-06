@@ -6,14 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const ManagementGrid = (props: any) => {
     const navigate = useNavigate();
-    const { data, loading } = useQuery(props.query, {
-        variables: {
-            search: "",
-            pageIndex: props?.pageIndex,
-            pageSize: props?.pageSize,
-            sortField: "",
-        }
-    });
+    const { data, loading } = useQuery(props.query);
 
     useEffect(() => {
         props?.handleUseEffect(loading, data);

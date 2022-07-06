@@ -35,8 +35,6 @@ const columns: GridColDef[] = [
 
 const ProductManagement = () => {
     const [rows, setRows] = useState([]);
-    const [pageIndex, setPageIndex] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
     const navigate = useNavigate();
 
     const handleUseEffect = (loading: boolean, data: any) => {
@@ -63,16 +61,15 @@ const ProductManagement = () => {
             <Button
                 sx={{ my: 3 }}
                 variant="contained"
-                onClick={() => { navigate("/management/lemonadetype/details/0") }}>
+                onClick={() => { navigate("/management/product/details/0") }}>
                 Add Product
             </Button>
             <ManagementGrid
                 rows={rows}
                 columns={columns}
-                pageSize={pageSize}
-                pageIndex={pageIndex}
                 query={GET_ALL_PRODUCTS}
                 handleUseEffect={handleUseEffect}
+                path="/management/product/details/"
             />
         </Box>
     );

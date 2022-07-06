@@ -23,8 +23,6 @@ const columns: GridColDef[] = [
 
 const Size = () => {
     const [rows, setRows] = useState([]);
-    const [pageIndex, setPageIndex] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
     const navigate = useNavigate();
 
     const handleUseEffect = (loading: boolean, data: any) => {
@@ -55,8 +53,6 @@ const Size = () => {
             <ManagementGrid
                 rows={rows}
                 columns={columns}
-                pageSize={pageSize}
-                pageIndex={pageIndex}
                 query={GET_ALL_SIZES}
                 handleUseEffect={handleUseEffect}
                 path="/management/size/details/"
