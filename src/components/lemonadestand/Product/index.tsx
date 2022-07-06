@@ -10,6 +10,7 @@ import { Grid, TextField, FormControl, FormHelperText } from '@mui/material';
 import { LineItem } from '../../../types/product/LineItem';
 import { Product } from '../../../types/product/Product';
 import { TFormFields } from '../../../types/TFormFields';
+import { TFormAttribute } from '../../../types/FormAttributes';
 
 const ProductCard = (props: any) => (
     <Grid item md={6} sx={{ mt: 3 }}>
@@ -81,26 +82,44 @@ const Products = (props: any) => {
     useEffect(() => {
         if (!loading && data && data?.products?.length > 0) {
             let lineItemArr = [] as Array<LineItem>;
+            let formFields = [] as Array<TFormFields>;
             data?.products?.map((item: Product, index: number) => {
+                // set line item
                 let lineItemObject = {} as LineItem;
-                lineItemObject.cost = parseFloat(item?.amount);
-                lineItemObject.productId = item?.id;
+                lineItemObject.cost = parseFloat(item?.amount!);
+                lineItemObject.productId = item?.id!;
                 lineItemObject.quantity = props?.lineItems[index]?.quantity as number;
                 lineItemArr.push(lineItemObject);
+
+                // set form fields
+                let formField = {} as TFormFields;
+                formField.formAttribute = {} as TFormAttribute;
+                formField.formAttribute.id = "product-" + item.id;
+                formField.formAttribute.name = "product-" + item.id;
+                formField.formAttribute.label = "Quantity";
+                formField.isTouched = false;
+                formFields.push(formField);
             });
 
+            const productForm = { ...props.formhandler };
+            productForm.forms[0].formFields = formFields;
+            props.setFormHandler(productForm);
+
             props.setLineItem(lineItemArr);
+
+            // set form fields for product dynamically so we can error handle correctly 
+
         }
     }, [loading]);
 
     useEffect(() => {
-        //set formhasLoaded to true on component mount
+        // set formhasLoaded to true on component mount
         props?.setFormhasLoadedTrue(props?.formhandler, props?.activeStep);
 
-        //set formhasLoaded to false on component unmount
-        //this implementation helps with controlling the 
-        //error handled to is only appears on the current
-        //step in the stepper
+        // set formhasLoaded to false on component unmount
+        // this implementation helps with controlling the 
+        // error handled to is only appears on the current
+        // step in the stepper
         return () => {
             props?.setFormhasLoadedFalse(props?.formhandler, props?.activeStep);
         }
@@ -109,9 +128,9 @@ const Products = (props: any) => {
     const handleSettingLineItem = (quantity: number, product: Product) => {
         let lineItemObject = {} as LineItem;
 
-        const costAmount = parseFloat(product.amount) * quantity;
+        const costAmount = parseFloat(product?.amount!) * quantity;
         lineItemObject.cost = costAmount;
-        lineItemObject.productId = product.id;
+        lineItemObject.productId = product?.id!;
         lineItemObject.quantity = quantity;
         return lineItemObject;
     }
@@ -124,13 +143,13 @@ const Products = (props: any) => {
 
         lineItemObject = handleSettingLineItem(quantity, product);
         if (lineItem.length > 0) {
-            //update specific line item
+            // update specific line item
             const lineItemIndex = props?.lineItems?.findIndex(x => x.productId === product?.id);
             const lineItemsCopy = [...props?.lineItems];
             lineItemsCopy[lineItemIndex] = lineItemObject;
             props?.setLineItem(lineItemsCopy);
         } else {
-            //add new line item
+            // add new line item
             props?.setLineItem(prevState => ([
                 ...prevState, lineItemObject
             ]));

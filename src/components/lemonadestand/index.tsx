@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { ADD_ORDER } from '../../graphql/mutations/addOrder';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import { TFormFields } from '../../types/TFormFields';
 
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const phoneNumberRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i;
@@ -24,48 +25,7 @@ const formsInitialstate: Array<TForm> = [
     {
         name: "product",
         formHasLoaded: false,
-        formFields: [
-            {
-                formAttribute:
-                {
-                    id: "lemonade-quantity-1",
-                    name: "lemonade-quantity-1",
-                    label: "Quantity",
-                },
-                isTouched: false,
-
-            },
-            {
-                formAttribute:
-                {
-                    id: "lemonade-quantity-2",
-                    name: "lemonade-quantity-2",
-                    label: "Quantity",
-                },
-                isTouched: false,
-
-            },
-            {
-                formAttribute:
-                {
-                    id: "lemonade-quantity-3",
-                    name: "lemonade-quantity-3",
-                    label: "Quantity",
-                },
-                isTouched: false,
-
-            },
-            {
-                formAttribute:
-                {
-                    id: "lemonade-quantity-4",
-                    name: "lemonade-quantity-4",
-                    label: "Quantity",
-                },
-                isTouched: false,
-
-            },
-        ]
+        formFields: []
     },
     {
         name: "contact",
@@ -170,18 +130,22 @@ const LemonadeStand = () => {
     }
 
     const handleForcingIsTouchedonallFields = (value: boolean) => {
-        var copyFormhandler = { ...formhandler };
-        copyFormhandler.forms[activeStep].formFields.map((item: any, index) => {
-            if (activeStep === 0 && (!lineItems[item]?.quantity || lineItems[index]?.quantity === 0)) {
+        let formFields = [] as Array<TFormFields>;
+        formhandler.forms[activeStep].formFields.map((item: TFormFields, index) => {
+            if (activeStep === 0 && (!lineItems[index]?.quantity || lineItems[index]?.quantity === 0)) {
                 item.isTouched = value;
+                formFields.push(item);
             }
 
             if (activeStep === 1 && !contactInformation[index]) {
                 item.isTouched = value;
+                formFields.push(item);
             }
         });
 
-        setFormHandler(copyFormhandler);
+        const productForm = { ...formhandler };
+        productForm.forms[activeStep].formFields = formFields;
+        setFormHandler(productForm);
     }
 
     const handleCheckinglineItem = () => {
