@@ -1,5 +1,5 @@
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { Box, Button, FormControl, Grid, Skeleton, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormHelperText, Grid, Skeleton, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ADD_SIZE } from "../../../../graphql/mutations/addSize";
@@ -51,8 +51,35 @@ const SizeDetail = () => {
         console.log(size)
     }, [size]);
 
+    const handleSettingFormhandlerFields = (index: number, sizeFormfield: TFormFields) => {
+        const form = { ...sizeform };
+        sizeFormfield.isTouched = true;
+        form.formFields[index] = sizeFormfield;
+        setSizeform(form);
+    }
+
+    const handleSubmittionValidation = (): boolean => {
+        let hasErrors = false;
+        if (sizeform?.formHasLoaded && Object.keys(size).length === 0) {
+            sizeform?.formFields?.map((item, index) => {
+                handleSettingFormhandlerFields(index, item);
+            });
+            hasErrors = true
+        } else {
+            sizeform?.formFields?.map((item, index) => {
+                if (!size[item?.formAttribute?.name]!) {
+                    handleSettingFormhandlerFields(index, item);
+                    hasErrors = true;
+                }
+            });
+        }
+        return hasErrors;
+    };
+
+
     const handleSubmit = () => {
-        if (parseInt(id!) === 0 || !size) {
+        const hasErrors = handleSubmittionValidation();
+        if ((parseInt(id!) === 0 || !size) && !hasErrors) {
             addSize(
                 {
                     variables:
@@ -71,7 +98,9 @@ const SizeDetail = () => {
             }).catch((error) => {
                 console.log(error);
             });
-        } else {
+        }
+
+        if (parseInt(id!) > 0 && size && !hasErrors) {
             updateSize(
                 {
                     variables:
@@ -129,9 +158,18 @@ const SizeDetail = () => {
                                                     let sz = { ...size };
                                                     sz.name = value;
                                                     setSize(sz);
+                                                    handleSettingFormhandlerFields(index, item);
                                                 }}
+                                                error={item?.isTouched && !size[item?.formAttribute?.name]!}
                                             />
                                         </FormControl>
+                                        {(item?.isTouched && !size[item?.formAttribute?.name])
+                                            ?
+                                            <FormHelperText id="component-helper-text" error>
+                                                {item?.formAttribute?.label} is Required
+                                            </FormHelperText>
+                                            : null
+                                        }
                                     </Grid>
                                 ))
                                 :

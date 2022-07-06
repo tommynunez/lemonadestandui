@@ -75,6 +75,13 @@ const ProductManagementDetails = () => {
         setproductform({ ...productform, formHasLoaded: true });
     }, [id]);
 
+    const handleSettingFormhandlerFields = (index: number, productFormfield: TFormFields) => {
+        const form = { ...productform };
+        productFormfield.isTouched = true;
+        form.formFields[index] = productFormfield;
+        setproductform(form);
+    }
+
     const handleSubmittionValidation = (): boolean => {
         let hasErrors = false;
         if (productform?.formHasLoaded && Object.keys(product).length === 0) {
@@ -162,23 +169,6 @@ const ProductManagementDetails = () => {
             ))
         }
     };
-
-    const handleGettingSelectValue = (item: TFormFields, product: Product) => {
-        if (item?.formAttribute?.name === "size") {
-            return product?.size?.id;
-        } else if (item?.formAttribute?.name === "lemonadeType") {
-            return product?.lemonadeType?.id;
-        } else {
-            return 0;
-        }
-    }
-
-    const handleSettingFormhandlerFields = (index: number, productFormfield: TFormFields) => {
-        const form = { ...productform };
-        productFormfield.isTouched = true;
-        form.formFields[index] = productFormfield;
-        setproductform(form);
-    }
 
     return (
         <>

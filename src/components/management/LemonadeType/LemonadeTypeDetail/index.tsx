@@ -1,5 +1,5 @@
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { Box, Button, FormControl, Grid, Skeleton, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormHelperText, Grid, Skeleton, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ADD_LEMONADE_TYPE } from "../../../../graphql/mutations/addLemonadetype";
@@ -51,8 +51,35 @@ const LemonadeTypeDetail = () => {
         console.log(lemonadeType)
     }, [lemonadeType]);
 
+    const handleSettingFormhandlerFields = (index: number, lemonadeTypeformField: TFormFields) => {
+        const form = { ...lemonadeTypeform };
+        lemonadeTypeformField.isTouched = true;
+        form.formFields[index] = lemonadeTypeformField;
+        setLemonadeTypeform(form);
+    }
+
+    const handleSubmittionValidation = (): boolean => {
+        let hasErrors = false;
+        if (lemonadeTypeform?.formHasLoaded && Object.keys(lemonadeType).length === 0) {
+            lemonadeTypeform?.formFields?.map((item, index) => {
+                handleSettingFormhandlerFields(index, item);
+            });
+            hasErrors = true
+        } else {
+            lemonadeTypeform?.formFields?.map((item, index) => {
+                if (!lemonadeType[item?.formAttribute?.name]!) {
+                    handleSettingFormhandlerFields(index, item);
+                    hasErrors = true;
+                }
+            });
+        }
+        return hasErrors;
+    };
+
+
     const handleSubmit = () => {
-        if (parseInt(id!) === 0 || !lemonadeType) {
+        const hasErrors = handleSubmittionValidation();
+        if ((parseInt(id!) === 0 || !lemonadeType) && !hasErrors) {
             addLemonadeType(
                 {
                     variables:
@@ -71,7 +98,9 @@ const LemonadeTypeDetail = () => {
             }).catch((error) => {
                 console.log(error);
             });
-        } else {
+        }
+
+        if (parseInt(id!) > 0 && lemonadeType && !hasErrors) {
             updateLemonadeType(
                 {
                     variables:
@@ -129,9 +158,18 @@ const LemonadeTypeDetail = () => {
                                                     let lt = { ...lemonadeType };
                                                     lt.name = value;
                                                     setLemonadeType(lt);
+                                                    handleSettingFormhandlerFields(index, item);
                                                 }}
+                                                error={item?.isTouched && !lemonadeType[item?.formAttribute?.name]!}
                                             />
                                         </FormControl>
+                                        {(item?.isTouched && !lemonadeType[item?.formAttribute?.name])
+                                            ?
+                                            <FormHelperText id="component-helper-text" error>
+                                                {item?.formAttribute?.label} is Required
+                                            </FormHelperText>
+                                            : null
+                                        }
                                     </Grid>
                                 ))
                                 :
