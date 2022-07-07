@@ -196,14 +196,17 @@ const LemonadeStand = () => {
                 message: ''
             });
         };
-        console.log(lineItems)
+
         if (activeStep === steps.length - 1) {
+            const filteredLineitems = lineItems.filter((item: LineItem, index: number) => {
+                return item.quantity && item.quantity > 0
+            });
             //Todo send data to server
             //reroute user to confirmation page
 
-            const totalCost = lineItems
+            const totalCost = filteredLineitems
                 .map((item: LineItem, index: number) => {
-                    const quantity = isNaN(lineItems[index]?.quantity) ? 0 : lineItems[index]?.quantity;
+                    const quantity = isNaN(filteredLineitems[index]?.quantity) ? 0 : filteredLineitems[index]?.quantity;
                     const totalAmount = quantity * item.cost;
                     return (totalAmount);
                 }).reduce((acc, value) => acc + value)
@@ -219,14 +222,14 @@ const LemonadeStand = () => {
                             "email": contactInformation.email,
                             "phone": contactInformation.phone,
                             "totalCost": parseFloat(totalCost),
-                            "lineItems": lineItems,
+                            "lineItems": filteredLineitems,
                         }
                     }
                 }
             ).then((response) => {
                 console.log(response);
                 if (response?.data?.insertOrder) {
-                    navigate("/confirmation");
+                    navigate("/storefront/confirmation");
                 }
             }).catch((error) => {
                 console.log(error);

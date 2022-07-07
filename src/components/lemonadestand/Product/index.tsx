@@ -14,7 +14,7 @@ import { TFormAttribute } from '../../../types/FormAttributes';
 
 const ProductCard = (props: any) => (
     <Grid item md={6} sx={{ mt: 3 }}>
-        <Card sx={{ border: ` ${(props?.item?.lemonadeType?.name === "Regular Lemonade") ? "1px solid yellow" : "1px solid pink"}` }}>
+        <Card sx={{ border: ` ${(props?.item?.lemonadeType?.name === "Regular Lemonade") ? "1px solid yellow" : (props?.item?.lemonadeType?.name === "Pink Lemonade") ? "1px solid pink" : "1px solid black"}` }}>
             <CardContent>
                 <Typography color="text.secondary" gutterBottom>
                     {props?.item?.lemonadeType?.name}
