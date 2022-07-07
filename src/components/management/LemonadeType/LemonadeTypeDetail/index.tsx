@@ -47,10 +47,6 @@ const LemonadeTypeDetail = () => {
         }
     }, [id]);
 
-    useEffect(() => {
-        console.log(lemonadeType)
-    }, [lemonadeType]);
-
     const handleSettingFormhandlerFields = (index: number, lemonadeTypeformField: TFormFields) => {
         const form = { ...lemonadeTypeform };
         lemonadeTypeformField.isTouched = true;
@@ -133,13 +129,20 @@ const LemonadeTypeDetail = () => {
                             <Typography variant="h4">
                                 Lemonade Type Detail
                             </Typography>
+                            <Grid item xs={12} md={6}>
+
+                                <Typography variant="subtitle1">
+                                    Create a new or update an existing lemonade type. Lemonade Types along with sizes
+                                    correlate to a product.  A product will demonstrate what a customer can order.
+                                </Typography>
+                            </Grid>
                         </Grid>
                         {
 
                             (!loading && lemonadeType)
                                 ?
                                 lemonadeTypeform.formFields?.map((item: TFormFields, index: number) => (
-                                    <Grid item md={6} key={index}>
+                                    <Grid item xs={12} md={6} key={index}>
                                         <FormControl fullWidth sx={{ my: 1 }}>
                                             <TextField
                                                 onKeyDown={(e) => {

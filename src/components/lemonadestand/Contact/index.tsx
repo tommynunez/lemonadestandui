@@ -32,10 +32,10 @@ const Contact = (props: any) => {
     return (
         <>
             <Box sx={{ flexGrow: 1, my: 10 }}>
-                <Grid container spacing={5} px={10}>
+                <Grid container spacing={5} px={{ xs: 5, md: 10 }}>
                     {
                         props?.formhandler?.forms[props.activeStep]?.formFields?.map((item: TFormFields, index) => (
-                            <Grid item md={6} key={index}>
+                            <Grid item xs={12} md={6} key={index}>
                                 <FormControl fullWidth sx={{ m: 1 }}>
                                     <TextField
                                         autoFocus={index === 1}

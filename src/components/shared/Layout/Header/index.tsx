@@ -20,7 +20,7 @@ const Header = () => {
                     >
                         <MenuIcon />
                     </IconButton> */}
-                    <Link href="/" color='text.primary'>
+                    <Link href="/" sx={{ color: "white" }}>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             Lemonade Stand
                         </Typography>

@@ -179,13 +179,19 @@ const ProductManagementDetails = () => {
                             <Typography variant="h4">
                                 Product Detail
                             </Typography>
+                            <Grid item xs={12} md={6}>
+                                <Typography variant="subtitle1">
+                                    Create a new or update an existing product. Products contain a lemonade type along with a size.
+                                    Product information changes will automatically display on the store front when created or updated.
+                                </Typography>
+                            </Grid>
                         </Grid>
                         {
 
                             (!loading && !loadingLemonadeTypes && !loadingSizes && product)
                                 ?
                                 productform.formFields?.map((item: TFormFields, index: number) => (
-                                    <Grid item md={6} key={index}>
+                                    <Grid item xs={12} md={6} key={index}>
                                         <FormControl fullWidth sx={{ my: 1 }}>
                                             {
                                                 (item.formAttribute.type === "number")
@@ -202,7 +208,7 @@ const ProductManagementDetails = () => {
                                                         autoFocus={index === 0}
                                                         name={item?.formAttribute?.name}
                                                         label={item?.formAttribute?.label}
-                                                        value={(product![item?.formAttribute?.name]) ? product![item?.formAttribute?.name] : null}
+                                                        value={(product![item?.formAttribute?.name])}
                                                         InputProps={{
                                                             inputProps: {
                                                                 min: 0, max: 25

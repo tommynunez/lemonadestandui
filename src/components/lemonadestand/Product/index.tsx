@@ -13,7 +13,7 @@ import { TFormFields } from '../../../types/TFormFields';
 import { TFormAttribute } from '../../../types/FormAttributes';
 
 const ProductCard = (props: any) => (
-    <Grid item md={6} sx={{ mt: 3 }}>
+    <Grid item xs={12} md={6} lg={4} sx={{ mt: 3 }}>
         <Card sx={{ border: ` ${(props?.item?.lemonadeType?.name === "Regular Lemonade") ? "1px solid yellow" : (props?.item?.lemonadeType?.name === "Pink Lemonade") ? "1px solid pink" : "1px solid black"}` }}>
             <CardContent>
                 <Typography color="text.secondary" gutterBottom>
@@ -160,7 +160,7 @@ const Products = (props: any) => {
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={5} px={10}>
+                <Grid container spacing={5} px={{ xs: 5, md: 10 }}>
                     {
                         data?.products?.map((item, index) => (
                             <ProductCard

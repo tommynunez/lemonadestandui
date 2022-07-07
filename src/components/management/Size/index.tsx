@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,9 +41,18 @@ const Size = () => {
 
     return (
         <Box sx={{ height: 400, width: '100%' }}>
-            <Typography variant="h4">
-                Sizes
-            </Typography>
+            <Grid container spacing={5}>
+                <Grid item xs={12}>
+                    <Typography variant="h4" sx={{ my: 2 }}>
+                        Sizes
+                    </Typography>
+                    <Grid item xs={12} md={6}>
+                        <Typography variant="subtitle1">
+                            Here is all sizes.
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </Grid>
             <Button
                 sx={{ my: 3 }}
                 variant="contained"

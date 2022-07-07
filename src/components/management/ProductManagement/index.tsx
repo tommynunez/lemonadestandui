@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -55,9 +55,18 @@ const ProductManagement = () => {
 
     return (
         <Box sx={{ height: 400, width: '100%' }}>
-            <Typography variant="h4">
-                Products
-            </Typography>
+            <Grid container spacing={5}>
+                <Grid item xs={12}>
+                    <Typography variant="h4" sx={{ my: 2 }}>
+                        Products
+                    </Typography>
+                    <Grid item xs={12} md={6}>
+                        <Typography variant="subtitle1">
+                            Here is all products.
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </Grid>
             <Button
                 sx={{ my: 3 }}
                 variant="contained"

@@ -66,9 +66,9 @@ const Review = (props: ReviewProps) => {
                                                 : props?.lineItems[index]?.quantity}{" "}
                                         </TableCell>
                                         <TableCell align="right">
-                                            {(isNaN(props?.lineItems[index]?.quantity * parseFloat(item?.amount))
+                                            {(isNaN(props?.lineItems[index]?.quantity * parseFloat(item?.amount!))
                                                 ? 0
-                                                : (props?.lineItems[index]?.quantity * parseFloat(item?.amount)).toFixed(2)
+                                                : (props?.lineItems[index]?.quantity * parseFloat(item?.amount!)).toFixed(2)
                                             )}{" "}
                                         </TableCell>
                                     </TableRow>

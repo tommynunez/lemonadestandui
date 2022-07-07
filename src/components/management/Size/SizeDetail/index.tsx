@@ -47,10 +47,6 @@ const SizeDetail = () => {
         }
     }, [id]);
 
-    useEffect(() => {
-        console.log(size)
-    }, [size]);
-
     const handleSettingFormhandlerFields = (index: number, sizeFormfield: TFormFields) => {
         const form = { ...sizeform };
         sizeFormfield.isTouched = true;
@@ -133,13 +129,19 @@ const SizeDetail = () => {
                             <Typography variant="h4">
                                 Size Detail
                             </Typography>
+                            <Grid item xs={12} md={6}>
+                                <Typography variant="subtitle1">
+                                    Create a new or update an existing size. Sizes along with lemoande types
+                                    correlate to a product.  A product will demonstrate what a customer can order.
+                                </Typography>
+                            </Grid>
                         </Grid>
                         {
 
                             (!loading && size)
                                 ?
                                 sizeform.formFields?.map((item: TFormFields, index: number) => (
-                                    <Grid item md={6} key={index}>
+                                    <Grid item xs={12} md={6} key={index}>
                                         <FormControl fullWidth sx={{ my: 1 }}>
                                             <TextField
                                                 onKeyDown={(e) => {

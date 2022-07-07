@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ALL_LEMONADE_TYPES } from '../../../graphql/queries/getAllLemonadeTypes';
 import ManagementGrid from '../../shared/DataGrid';
 import { GridColDef } from '@mui/x-data-grid';
-import { Button, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const columns: GridColDef[] = [
@@ -43,9 +43,18 @@ const LemonadeType = () => {
 
     return (
         <Box sx={{ height: 400, width: '100%' }}>
-            <Typography variant="h4">
-                Lemonade Types
-            </Typography>
+            <Grid container spacing={5}>
+                <Grid item xs={12}>
+                    <Typography variant="h4" sx={{ my: 2 }}>
+                        Lemonade Types
+                    </Typography>
+                    <Grid item xs={12} md={6}>
+                        <Typography variant="subtitle1">
+                            Here is all lemonade types.
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </Grid>
             <Button
                 sx={{ my: 3 }}
                 variant="contained"

@@ -12,10 +12,6 @@ const ManagementGrid = (props: any) => {
         props?.handleUseEffect(loading, data);
     }, [loading]);
 
-    useEffect(() => {
-        console.log('asdf');
-    }, []);
-
     return (
         <>
             <Box sx={{ height: 400, width: '100%' }}>
@@ -23,7 +19,7 @@ const ManagementGrid = (props: any) => {
                     rows={props?.rows}
                     columns={props?.columns}
                     pageSize={props?.pageSize}
-                    rowsPerPageOptions={[props?.pageSize]}
+                    rowsPerPageOptions={[25, 50, 100]}
                     onRowClick={(newSelection) => {
                         if (props?.path) {
                             return navigate(props?.path + newSelection.id);
