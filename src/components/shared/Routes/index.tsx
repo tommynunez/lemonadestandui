@@ -17,7 +17,7 @@ const Routing = () => {
     const element = useRoutes([
         {
             path: "/",
-            element: <Landing />,
+            element: <Layout element={<Landing />} />,
         },
         {
             path: "/storefront/confirmation",

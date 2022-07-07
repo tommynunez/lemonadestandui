@@ -20,6 +20,7 @@ import StoreIcon from '@mui/icons-material/Store';
 import StraightenIcon from '@mui/icons-material/Straighten';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
 import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -138,8 +139,13 @@ const ManagementLayout = (props: any) => {
                 <List>
                     {[
                         {
-                            'name': 'Lemonade Type',
+                            'name': 'Store Front',
                             'icon': <StoreIcon />,
+                            'url': '/storefront'
+                        },
+                        {
+                            'name': 'Lemonade Type',
+                            'icon': <LocalDrinkIcon />,
                             'url': '/management/lemonadetype'
                         },
                         {

@@ -8,7 +8,7 @@ import ManagementGrid from "../../shared/DataGrid";
 const columns: GridColDef[] = [
     {
         field: 'id',
-        headerName: 'ID',
+        headerName: 'Id',
         width: 90,
         editable: false,
     },

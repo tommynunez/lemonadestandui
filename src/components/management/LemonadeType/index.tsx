@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useState } from 'react';
 import { GET_ALL_LEMONADE_TYPES } from '../../../graphql/queries/getAllLemonadeTypes';
 import ManagementGrid from '../../shared/DataGrid';
 import { GridColDef } from '@mui/x-data-grid';
@@ -11,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const columns: GridColDef[] = [
     {
         field: 'id',
-        headerName: 'ID',
+        headerName: 'Id',
         width: 90,
         editable: false,
     },
