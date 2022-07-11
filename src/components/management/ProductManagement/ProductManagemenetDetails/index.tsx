@@ -59,6 +59,7 @@ const ProductManagementDetails = () => {
     const { data: sizeData, loading: loadingSizes } = useQuery(GET_ALL_SIZES);
     const [addProduct, { loading: loadingAddOrder }] = useMutation(ADD_PRODUCT);
     const [updateProduct, { loading: loadingUpdateOrder }] = useMutation(UPDATE_PRODUCT);
+    const [doesRecordExist, setDoesRecordExist] = useState(false);
 
     useEffect(() => {
         if (id && parseInt(id) > 0 && !loading) {
@@ -67,6 +68,10 @@ const ProductManagementDetails = () => {
                     id: parseInt(id!),
                 }
             }).then((response) => {
+                if (!response?.data?.retrieveProductById?.id
+                    && !response?.data?.retrieveProductById?.name) {
+                    setDoesRecordExist(true);
+                }
                 setProduct(response?.data?.retrieveProductById);
             }).catch((error) => {
                 console.log(error);
@@ -184,6 +189,12 @@ const ProductManagementDetails = () => {
                                     Create a new or update an existing product. Products contain a lemonade type along with a size.
                                     Product information changes will automatically display on the store front when created or updated.
                                 </Typography>
+                                {doesRecordExist ?
+                                    (<Typography variant="subtitle2" sx={{ color: '#FF0000' }}>
+                                        The record you are searching for does not exist, please enter a new record
+                                        or click back to see all products.
+                                    </Typography>) : <></>
+                                }
                             </Grid>
                         </Grid>
                         {

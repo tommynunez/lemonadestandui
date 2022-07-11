@@ -32,6 +32,7 @@ const SizeDetail = () => {
     const [getSizebyID, { loading }] = useLazyQuery(GET_SIZE_ID);
     const [addSize, { loading: loadingAddOrder }] = useMutation(ADD_SIZE);
     const [updateSize, { loading: loadingUpdateOrder }] = useMutation(UPDATE_SIZE);
+    const [doesRecordExist, setDoesRecordExist] = useState(false);
 
     useEffect(() => {
         if (id && parseInt(id) > 0 && !loading) {
@@ -40,6 +41,10 @@ const SizeDetail = () => {
                     id: parseInt(id!),
                 }
             }).then((response) => {
+                if (!response?.data?.retrieveSizeTypeById?.id
+                    && !response?.data?.retrieveSizeTypeById?.name) {
+                    setDoesRecordExist(true);
+                }
                 setSize(response?.data?.retrieveSizeTypeById);
             }).catch((error) => {
                 console.log(error);
@@ -134,6 +139,12 @@ const SizeDetail = () => {
                                     Create a new or update an existing size. Sizes along with lemoande types
                                     correlate to a product.  A product will demonstrate what a customer can order.
                                 </Typography>
+                                {doesRecordExist ?
+                                    (<Typography variant="subtitle2" sx={{ color: '#FF0000' }}>
+                                        The record you are searching for does not exist, please enter a new record
+                                        or click back to see all sizes.
+                                    </Typography>) : <></>
+                                }
                             </Grid>
                         </Grid>
                         {

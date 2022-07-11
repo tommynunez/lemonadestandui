@@ -32,6 +32,7 @@ const LemonadeTypeDetail = () => {
     const [getLemonadetype, { loading }] = useLazyQuery(GET_LEMONADE_TYPE_ID);
     const [addLemonadeType, { loading: loadingAddOrder }] = useMutation(ADD_LEMONADE_TYPE);
     const [updateLemonadeType, { loading: loadingUpdateOrder }] = useMutation(UPDATE_LEMONADE_TYPE);
+    const [doesRecordExist, setDoesRecordExist] = useState(false);
 
     useEffect(() => {
         if (id && parseInt(id) > 0 && !loading) {
@@ -40,6 +41,10 @@ const LemonadeTypeDetail = () => {
                     id: parseInt(id!),
                 }
             }).then((response) => {
+                if (!response?.data?.retrieveLemonadeTypeById?.id
+                    && !response?.data?.retrieveLemonadeTypeById?.name) {
+                    setDoesRecordExist(true);
+                }
                 setLemonadeType(response?.data?.retrieveLemonadeTypeById);
             }).catch((error) => {
                 console.log(error);
@@ -130,11 +135,16 @@ const LemonadeTypeDetail = () => {
                                 Lemonade Type Detail
                             </Typography>
                             <Grid item xs={12} md={6}>
-
                                 <Typography variant="subtitle1">
                                     Create a new or update an existing lemonade type. Lemonade Types along with sizes
                                     correlate to a product.  A product will demonstrate what a customer can order.
                                 </Typography>
+                                {doesRecordExist ?
+                                    (<Typography variant="subtitle2" sx={{ color: '#FF0000' }}>
+                                        The record you are searching for does not exist, please enter a new record
+                                        or click back to see all lemonade types.
+                                    </Typography>) : <></>
+                                }
                             </Grid>
                         </Grid>
                         {
