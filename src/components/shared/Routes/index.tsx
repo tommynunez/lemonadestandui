@@ -20,7 +20,7 @@ const Routing = () => {
             element: <Layout element={<Landing />} />,
         },
         {
-            path: "/storefront/confirmation",
+            path: "/storefront/confirmation/:id",
             element: <Layout element={<Confirmation />} />,
         },
         {

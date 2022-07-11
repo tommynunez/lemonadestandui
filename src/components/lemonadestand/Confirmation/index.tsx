@@ -1,9 +1,16 @@
 import { Container, Box, Typography, Button, Link, } from '@mui/material';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Confirmation = () => {
     const navigate = useNavigate();
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (!id || parseInt(id) === 0) {
+            window.location.href = '/storefront';
+        }
+    }, []);
 
     return (
         <Container maxWidth="md" disableGutters={true}>
@@ -11,6 +18,8 @@ const Confirmation = () => {
                 <Typography mx={10} my={30} variant="h5">
                     Your order has been placed! You will receive your lemonade shortly.<br />
                     Thank you come again!
+                    <br />
+                    Your order number is #{id}
                     <br />
                     <Link
                         component="button"

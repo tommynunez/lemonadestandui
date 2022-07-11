@@ -229,7 +229,7 @@ const LemonadeStand = () => {
             ).then((response) => {
                 console.log(response);
                 if (response?.data?.insertOrder) {
-                    navigate("/storefront/confirmation");
+                    navigate(`/storefront/confirmation/${response?.data?.insertOrder}`);
                 }
             }).catch((error) => {
                 console.log(error);
