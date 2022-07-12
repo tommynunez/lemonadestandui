@@ -6,31 +6,31 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Grid, TextField, FormControl, FormHelperText } from '@mui/material';
+import { Grid, TextField, FormControl, FormHelperText, Button, useTheme } from '@mui/material';
 import { LineItem } from '../../../types/product/LineItem';
 import { Product } from '../../../types/product/Product';
 import { TFormFields } from '../../../types/TFormFields';
 import { TFormAttribute } from '../../../types/FormAttributes';
 
 const ProductCard = (props: any) => (
-    <Grid item xs={12} md={6} lg={4} sx={{ mt: 3 }}>
-        <Card sx={{ border: ` ${(props?.item?.lemonadeType?.name === "Regular Lemonade") ? "1px solid yellow" : (props?.item?.lemonadeType?.name === "Pink Lemonade") ? "1px solid pink" : "1px solid black"}` }}>
+    <Grid item xs={12} sx={{ mt: 3 }}>
+        <Card sx={{ border: `1px solid ${props?.theme?.palette?.primary.main}` }}>
             <CardContent>
                 <Typography color="text.secondary" gutterBottom>
                     {props?.item?.lemonadeType?.name}
                 </Typography>
-                <Typography sx={{ mb: 1.5, ontSize: 14 }} color="text.secondary">
+                <Typography color="text.secondary" sx={{ mb: 1.5, ontSize: 14 }}>
                     {props?.item?.size?.name}
                 </Typography>
-                <Typography variant="body2">
+                <Typography color="text.secondary" variant="body2">
                     $ {props?.item?.amount}
                 </Typography>
-                <Typography variant="body2">
+                <Typography color="text.secondary" variant="body2">
                     Total Cost: $ {!props?.lineItems[props?.index]?.cost ? '0.00' : props?.lineItems[props?.index]?.cost}
                 </Typography>
             </CardContent>
             <CardActions>
-                <FormControl sx={{ m: 1, width: '8em' }}>
+                <FormControl sx={{ m: 1, width: '8em' }} color={props?.theme?.palette?.secondary.contrastText}>
                     <TextField
                         id={`lemonade-quantity-${props?.index}`}
                         name={`lemonade-quantity-${props?.index}`}
@@ -44,6 +44,7 @@ const ProductCard = (props: any) => (
                                 min: 0, max: 25
                             }
                         }}
+                        color="secondary"
                         autoFocus={props?.index === 0}
                         defaultValue={props?.lineItems[props?.index]?.quantity}
                         onChange={(e: any) => {
@@ -78,6 +79,7 @@ const ProductCard = (props: any) => (
 
 const Products = (props: any) => {
     const { data, loading } = useQuery(GET_ALL_PRODUCTS);
+    const theme = useTheme();
 
     useEffect(() => {
         if (!loading && data && data?.products?.length > 0) {
@@ -161,22 +163,50 @@ const Products = (props: any) => {
         <>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={5} px={{ xs: 5, md: 10 }}>
-                    {
-                        data?.products?.map((item, index) => (
-                            <ProductCard
-                                item={item}
-                                key={index}
-                                handleSettingQuantity={handleSettingQuantity}
-                                lineItems={props?.lineItems}
-                                index={index}
-                                formhandler={props.formhandler}
-                                activeStep={props?.activeStep}
-                                setFormHandler={props.setFormHandler}
-                                handleSettingFormhandlerFields={props?.handleSettingFormhandlerFields}
-                                handleForcingIsTouchedonallFields={props?.handleForcingIsTouchedonallFields}
-                            />
-                        ))
-                    }
+                    <Grid item xs={12} md={8} px={{ xs: 5, md: 10 }}>
+                        {
+                            data?.products?.map((item, index) => (
+                                <ProductCard
+                                    item={item}
+                                    key={index}
+                                    handleSettingQuantity={handleSettingQuantity}
+                                    lineItems={props?.lineItems}
+                                    index={index}
+                                    formhandler={props.formhandler}
+                                    activeStep={props?.activeStep}
+                                    setFormHandler={props.setFormHandler}
+                                    handleSettingFormhandlerFields={props?.handleSettingFormhandlerFields}
+                                    handleForcingIsTouchedonallFields={props?.handleForcingIsTouchedonallFields}
+                                    theme={theme}
+                                />
+                            ))
+                        }
+                    </Grid>
+                    <Grid item xs={12} md={4} sx={{ mt: 3 }}>
+                        <Card sx={{ border: `1px solid ${theme?.palette?.primary?.main}` }}>
+                            <Typography variant="h6" color={theme?.palette?.secondary?.main} py={{ xs: 5, md: 5 }} px={{ xs: 2 }}>
+                                Your total amount will be {" "} $
+
+                                {props?.lineItems && props?.lineItems.length > 0
+                                    ?
+                                    props?.lineItems
+                                        .map((item: LineItem, index: number) => {
+                                            const quantity = isNaN(props?.lineItems[index]?.quantity) ? 0 : props?.lineItems[index]?.quantity;
+                                            const totalAmount = quantity * parseFloat(data?.products[index]?.amount);
+                                            console.log("totalAmount", totalAmount);
+                                            return (totalAmount);
+                                        }).reduce((acc, value) => acc + value)
+                                        .toFixed(2)
+                                    : '$ 0.00'
+                                }{" "}
+                            </Typography>
+                            <CardActions>
+                                <Button variant="contained" color="primary" onClick={props?.handleNext}>
+                                    Order Now
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
                 </Grid>
             </Box>
         </>

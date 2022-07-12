@@ -5,8 +5,11 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from '@mui/material/Link';
+import { ThemeConsumer } from 'styled-components';
+import { useTheme } from '@mui/material';
 
 const Header = () => {
+    const theme = useTheme();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -20,7 +23,7 @@ const Header = () => {
                     >
                         <MenuIcon />
                     </IconButton> */}
-                    <Link href="/" sx={{ color: "white" }}>
+                    <Link href="/" sx={{ color: theme.palette.primary.contrastText }}>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             Lemonade Stand
                         </Typography>

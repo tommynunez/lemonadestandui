@@ -1,4 +1,4 @@
-import { TableRow, TableCell, IconButton, Collapse, Box, Typography, Table, TableHead, TableBody, Paper, TableContainer, Grid } from "@mui/material";
+import { TableRow, TableCell, IconButton, Collapse, Box, Typography, Table, TableHead, TableBody, Paper, TableContainer, Grid, useTheme } from "@mui/material";
 import React, { useEffect } from "react";
 import { LineItem } from "../../../types/product/LineItem";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -75,6 +75,7 @@ function Row(props: { row: any, subRow: any, subRowCells: any, subRowElement: an
 };
 
 const CollapsableTable = (props: any) => {
+    const theme = useTheme();
     const { data, loading } = useQuery(props.query, {
         variables: {
             search: "",
@@ -92,7 +93,9 @@ const CollapsableTable = (props: any) => {
         <Grid item xs={12}>
             <TableContainer component={Paper}>
                 <Table aria-label="collapsable table">
-                    <TableHead>
+                    <TableHead sx={{
+                        backgroundColor: `${theme.palette.primary.main}`,
+                    }}>
                         <TableRow>
                             <TableCell />
                             {props?.rowscells.map((item, index) => {

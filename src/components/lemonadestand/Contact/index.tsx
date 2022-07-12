@@ -63,6 +63,7 @@ const Contact = (props: any) => {
                                             }
                                             props?.handleSettingFormhandlerFields(props?.formhandler, props?.setFormHandler, props?.activeStep, index);
                                         }}
+                                        color="secondary"
                                         defaultValue={props?.contactInformation[item.formAttribute.name]}
                                     />
                                     {props?.contactInformation

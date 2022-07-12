@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { LineItem } from '../../../types/product/LineItem';
 import { ContactInformation } from '../../../types/contact/ContactInformation';
-import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme, withStyles } from '@mui/material';
 import { GET_ALL_PRODUCTS } from '../../../graphql/queries/getAllProducts';
 import { useQuery } from '@apollo/client';
 import { Product } from '../../../types/product/Product';
@@ -13,6 +13,7 @@ type ReviewProps = {
 
 const Review = (props: ReviewProps) => {
     const { data, loading } = useQuery(GET_ALL_PRODUCTS);
+    const theme = useTheme();
 
     return (
         <Container maxWidth="md" disableGutters={true}>
@@ -40,14 +41,14 @@ const Review = (props: ReviewProps) => {
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Lemonade Type</TableCell>
-                                <TableCell align="right">
+                                <TableCell sx={{ backgroundColor: theme.palette.primary.main }}>Lemonade Type</TableCell>
+                                <TableCell sx={{ backgroundColor: theme.palette.primary.main }} align="right">
                                     Size
-                                </TableCell>
-                                <TableCell align="right">
+                                </TableCell >
+                                <TableCell sx={{ backgroundColor: theme.palette.primary.main }} align="right">
                                     Quantity
                                 </TableCell>
-                                <TableCell align="right">
+                                <TableCell sx={{ backgroundColor: theme.palette.primary.main }} align="right">
                                     Price
                                 </TableCell>
                             </TableRow>
@@ -78,7 +79,7 @@ const Review = (props: ReviewProps) => {
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell align="right">
-                                    <strong>Total Amount</strong>
+                                    <b>Total Amount</b>
                                 </TableCell>
                                 <TableCell align="right">
                                     {props?.lineItems

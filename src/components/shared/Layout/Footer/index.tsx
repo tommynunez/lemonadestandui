@@ -27,15 +27,15 @@ const Footer = (props: FooterProps) => {
     return (
         <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>
             <Container maxWidth="lg">
-                <Typography variant="h6" align="center" gutterBottom>
-                    <Link href="/">
+                <Typography variant="h6" align="center" color="secondary" gutterBottom>
+                    <Link href="/" color="secondary">
                         {title}
                     </Link>
                 </Typography>
                 <Typography
                     variant="subtitle1"
                     align="center"
-                    color="text.secondary"
+                    color="secondary"
                     component="p"
                 >
                     {description}

@@ -265,7 +265,8 @@ const LemonadeStand = () => {
                 setFormhasLoadedTrue,
                 setFormhasLoadedFalse,
                 handleSettingFormhandlerFields,
-                handleForcingIsTouchedonallFields
+                handleForcingIsTouchedonallFields,
+                handleNext
             }),
         React.createElement(Contact,
             {
