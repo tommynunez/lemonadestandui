@@ -24,6 +24,14 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GH_PAT }}
 
+
+    - name: Sets MODIFIED_BRANCH_NAME
+      id: branchname
+      env:
+        name: "${{github.ref_name}}"
+      run: |
+        echo "branchname=${name/\//-}" >> $GITHUB_ENV
+
     - name: Build and push Docker image
       id: push
       uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
@@ -32,7 +40,7 @@ jobs:
         push: true
         tags: |
           ${{ env.REGISTRY }}/${{ github.repository }}:latest
-          ${{ env.REGISTRY }}/${{ github.repository }}:${{vars.VERSION_NUMBER}}.${{ github.run_number }}-${{github.ref_name}},
+          ${{ env.REGISTRY }}/${{ github.repository }}:${{vars.VERSION_NUMBER}}.${{ github.run_number }}-${{steps.branchname.outputs.branchname}},
         labels: ${{ steps.meta.outputs.labels }}
         #build-args: |
         #  "NODE_ENV=${{ vars.NODE_ENV }}"
