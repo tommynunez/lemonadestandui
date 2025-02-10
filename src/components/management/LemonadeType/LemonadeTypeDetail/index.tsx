@@ -11,9 +11,9 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ADD_LEMONADE_TYPE } from 'graphql/mutations/addLemonadetype';
-import { UPDATE_LEMONADE_TYPE } from 'graphql/mutations/updateLemonadeType';
-import { GET_LEMONADE_TYPE_ID } from 'graphql/queries/getLemonadeTypeById';
+import { ADD_LEMONADE_TYPE } from '../../../../graphql/mutations/addLemonadetype';
+import { UPDATE_LEMONADE_TYPE } from '../../../../graphql/mutations/updateLemonadeType';
+import { GET_LEMONADE_TYPE_ID } from '../../../../graphql/queries/getLemonadeTypeById';
 import { LemonadeType } from 'types/product/LemonadeType';
 import { TForm } from 'types/TForm';
 import { TFormFields } from 'types/TFormFields';
