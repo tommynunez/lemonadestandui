@@ -1,17 +1,16 @@
-FROM node:20-alpine
+FROM node:20 AS builder
 
 WORKDIR /app
 
-COPY package.json .
-
-RUN npm install
-
-RUN npm i -g serve
-
 COPY . .
 
+RUN npm install
 RUN npm run build
+FROM nginx:1.16.0-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-EXPOSE 3000
+RUN rm /etc/nginx/conf.d/default.conf
 
-CMD [ "serve", "-s", "dist" ]
+COPY deployment/nginx/nginx.conf /etc/nginx/conf.d
+EXPOSE 5001
+CMD ["nginx", "-g", "daemon off;"]
