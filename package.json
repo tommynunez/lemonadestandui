@@ -16,17 +16,14 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.5",
     "@mui/x-data-grid": "^5.12.3",
-    "@rollup/plugin-commonjs": "^28.0.2",
-    "@rollup/plugin-node-resolve": "^16.0.0",
     "apollo-boost": "^0.4.9",
     "babel-plugin-styled-components": "^2.0.7",
     "formik": "^2.2.9",
     "graphql": "^16.5.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-google-maps": "^9.4.5",
+    "react-google-maps": "7.3.0",
     "react-router-dom": "^6.3.0",
-    "rollup": "^2.78.0",
     "styled-components": "^5.3.5",
     "vite-plugin-babel-macros": "^1.0.6"
   },
@@ -39,14 +36,11 @@
     "@vitejs/plugin-react-refresh": "^1.3.6",
     "markdown-to-jsx": "^7.1.7",
     "typescript": "^4.6.3",
-    "vite": "^6.1.0",
+    "vite": "^2.9.9",
     "vite-plugin-markdown": "^2.0.2",
-    "vite-plugin-react-md": "^1.0.0"
+    "vite-plugin-react-md": "^1.0.1"
   },
   "resolutions": {
     "styled-components": "^5"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.6.1"
   }
 }

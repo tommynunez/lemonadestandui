@@ -7,14 +7,4 @@ const path = require('path');
 
 export default defineConfig({
 	plugins: [macrosPlugin(), reactPlugin(), plugin()],
-	build: {
-		rollupOptions: {
-			onwarn(warning, warn) {
-				if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
-					return;
-				}
-				warn(warning);
-			},
-		},
-	},
 });
