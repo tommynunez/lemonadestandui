@@ -22,10 +22,21 @@
     "noEmitOnError": true,
     "jsx": "react-jsx",
     "noImplicitAny": false,
+    "paths": {
+      "@*": [
+        "src/*"
+      ]
+    },
   },
   "include": [
-    "src",
-    "**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "tests/**/*.js",
+    "tests/**/*.jsx"
   ],
   "references": [
     {
