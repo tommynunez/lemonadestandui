@@ -1,16 +1,17 @@
-FROM mhart/alpine-node:12 AS builder
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY package.json .
 
 RUN npm install
+
+RUN npm i -g serve
+
+COPY . .
+
 RUN npm run build
-FROM nginx:1.16.0-alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
 
-RUN rm /etc/nginx/conf.d/default.conf
+EXPOSE 3000
 
-COPY deployment/nginx/nginx.conf /etc/nginx/conf.d
-EXPOSE 5001
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "serve", "-s", "dist" ]
