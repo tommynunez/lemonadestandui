@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm i --legacy-peer-deps\
+RUN npm ci --legacy-peer-deps\
   && npm install typescript -g
 RUN npm run build
 FROM nginx:1.16.0-alpine
