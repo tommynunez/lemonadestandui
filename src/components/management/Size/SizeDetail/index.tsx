@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ADD_SIZE } from '../../../../graphql/mutations/addSize';
+import { ADD_SIZE } from 'graphql/mutations/addSize';
 import { UPDATE_SIZE } from '../../../../graphql/mutations/updateSize';
 import { GET_SIZE_ID } from '../../../../graphql/queries/getSizeById';
 import { Size } from '../../../../types/product/Size';
