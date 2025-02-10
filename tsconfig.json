@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl":"src",
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": [
@@ -15,28 +14,15 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "noEmitOnError": true,
     "jsx": "react-jsx",
     "noImplicitAny": false,
-    "paths": {
-      "@*": [
-        "src/*"
-      ]
-    },
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "tests/**/*.js",
-    "tests/**/*.jsx"
+    "src"
   ],
   "references": [
     {
