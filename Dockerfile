@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 FROM nginx:1.16.0-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
