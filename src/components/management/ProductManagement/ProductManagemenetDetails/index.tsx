@@ -19,10 +19,10 @@ import { UPDATE_PRODUCT } from '../../../../graphql/mutations/updateProduct';
 import { GET_ALL_LEMONADE_TYPES } from '../../../../graphql/queries/getAllLemonadeTypes';
 import { GET_ALL_SIZES } from '../../../../graphql/queries/getAllSizes';
 import { GET_PRODUCT_BY_ID } from '../../../../graphql/queries/getProductById';
-import { Product } from 'types/product/Product';
-import { ProductMutationType } from 'types/product/ProductMutationType';
-import { TForm } from 'types/TForm';
-import { TFormFields } from 'types/TFormFields';
+import { Product } from '../../../../types/product/Product';
+import { ProductMutationType } from '../../../../types/product/ProductMutationType';
+import { TForm } from '../../../../types/TForm';
+import { TFormFields } from '../../../../types/TFormFields';
 
 const formsInitialstate: TForm = {
 	name: 'product',

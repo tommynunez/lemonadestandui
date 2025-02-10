@@ -14,9 +14,9 @@ import { useParams } from 'react-router-dom';
 import { ADD_SIZE } from '../../../../graphql/mutations/addSize';
 import { UPDATE_SIZE } from '../../../../graphql/mutations/updateSize';
 import { GET_SIZE_ID } from '../../../../graphql/queries/getSizeById';
-import { Size } from 'types/product/Size';
-import { TForm } from 'types/TForm';
-import { TFormFields } from 'types/TFormFields';
+import { Size } from '../../../../types/product/Size';
+import { TForm } from '../../../../types/TForm';
+import { TFormFields } from '../../../../types/TFormFields';
 
 const formsInitialstate: TForm = {
 	name: 'Size',
