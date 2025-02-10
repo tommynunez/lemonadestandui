@@ -26,6 +26,7 @@
     "react-dom": "^18.0.0",
     "react-google-maps": "7.3.0",
     "react-router-dom": "^6.3.0",
+    "rollup": "^2.78.0",
     "styled-components": "^5.3.5",
     "vite-plugin-babel-macros": "^1.0.6"
   },
