@@ -6,7 +6,7 @@ import {
 	TextField,
 } from '@mui/material';
 import { useEffect } from 'react';
-import { TFormFields } from '../../../types/TFormFields';
+import { TFormFields } from 'src/types/TFormFields';
 
 const Contact = (props: any) => {
 	const emailRegex =

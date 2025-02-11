@@ -15,15 +15,15 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ADD_PRODUCT } from '../../../../graphql/mutations/addProduct';
-import { UPDATE_PRODUCT } from '../../../../graphql/mutations/updateProduct';
-import { GET_ALL_LEMONADE_TYPES } from '../../../../graphql/queries/getAllLemonadeTypes';
-import { GET_ALL_SIZES } from '../../../../graphql/queries/getAllSizes';
-import { GET_PRODUCT_BY_ID } from '../../../../graphql/queries/getProductById';
-import { Product } from '../../../../types/product/Product';
-import { ProductMutationType } from '../../../../types/product/ProductMutationType';
-import { TForm } from '../../../../types/TForm';
-import { TFormFields } from '../../../../types/TFormFields';
+import { ADD_PRODUCT } from 'src/../graphql/mutations/addProduct';
+import { UPDATE_PRODUCT } from 'src/../graphql/mutations/updateProduct';
+import { GET_ALL_LEMONADE_TYPES } from 'src/../graphql/queries/getAllLemonadeTypes';
+import { GET_ALL_SIZES } from 'src/../graphql/queries/getAllSizes';
+import { GET_PRODUCT_BY_ID } from 'src/../graphql/queries/getProductById';
+import { Product } from 'src/../types/product/Product';
+import { ProductMutationType } from 'src/../types/product/ProductMutationType';
+import { TForm } from 'src/../types/TForm';
+import { TFormFields } from 'src/../types/TFormFields';
 
 const formsInitialstate: TForm = {
 	name: 'product',

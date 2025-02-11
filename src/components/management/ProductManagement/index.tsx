@@ -2,8 +2,8 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GET_ALL_PRODUCTS } from '../../../graphql/queries/getAllProducts';
-import ManagementGrid from '../../shared/DataGrid';
+import { GET_ALL_PRODUCTS } from 'src/graphql/queries/getAllProducts';
+import ManagementGrid from 'src/shared/DataGrid';
 
 const columns: GridColDef[] = [
 	{

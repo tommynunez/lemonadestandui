@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_PRODUCTS } from '../../../graphql/queries/getAllProducts';
+import { GET_ALL_PRODUCTS } from 'src/graphql/queries/getAllProducts';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -15,10 +15,10 @@ import {
 	Button,
 	useTheme,
 } from '@mui/material';
-import { LineItem } from '../../../types/product/LineItem';
-import { Product } from '../../../types/product/Product';
-import { TFormFields } from '../../../types/TFormFields';
-import { TFormAttribute } from '../../../types/FormAttributes';
+import { LineItem } from 'src/types/product/LineItem';
+import { Product } from 'src/types/product/Product';
+import { TFormFields } from 'src/types/TFormFields';
+import { TFormAttribute } from 'src/types/FormAttributes';
 
 const ProductCard = (props: any) => (
 	<Grid item xs={12} sx={{ mt: 3 }}>

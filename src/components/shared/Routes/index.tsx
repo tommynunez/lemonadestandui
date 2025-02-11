@@ -1,15 +1,15 @@
 import { useRoutes } from 'react-router-dom';
-import Landing from '../../landing';
-import LemonadeStand from '../../lemonadestand';
-import Confirmation from '../../lemonadestand/Confirmation';
-import Management from '../../management';
-import LemonadeType from '../../management/LemonadeType';
-import LemonadeTypeDetail from '../../management/LemonadeType/LemonadeTypeDetail';
-import Orders from '../../management/Orders';
-import ProductManagement from '../../management/ProductManagement';
-import ProductManagementDetails from '../../management/ProductManagement/ProductManagemenetDetails';
-import Size from '../../management/Size';
-import SizeDetail from '../../management/Size/SizeDetail';
+import Landing from 'src/landing';
+import LemonadeStand from 'src/lemonadestand';
+import Confirmation from 'src/lemonadestand/Confirmation';
+import Management from 'src/management';
+import LemonadeType from 'src/management/LemonadeType';
+import LemonadeTypeDetail from 'src/management/LemonadeType/LemonadeTypeDetail';
+import Orders from 'src/management/Orders';
+import ProductManagement from 'src/management/ProductManagement';
+import ProductManagementDetails from 'src/management/ProductManagement/ProductManagemenetDetails';
+import Size from 'src/management/Size';
+import SizeDetail from 'src/management/Size/SizeDetail';
 import Layout from '../Layout';
 import ManagementLayout from '../Layout/ManagmentLayout';
 
