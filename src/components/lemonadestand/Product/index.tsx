@@ -8,7 +8,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import {
-	Grid,
+	Grid2,
 	TextField,
 	FormControl,
 	FormHelperText,
@@ -21,7 +21,7 @@ import { TFormFields } from 'src/types/TFormFields';
 import { TFormAttribute } from 'src/types/FormAttributes';
 
 const ProductCard = (props: any) => (
-	<Grid item xs={12} sx={{ mt: 3 }}>
+	<Grid2>
 		<Card sx={{ border: `1px solid ${props?.theme?.palette?.primary.main}` }}>
 			<CardContent>
 				<Typography color='text.secondary' gutterBottom>
@@ -99,7 +99,7 @@ const ProductCard = (props: any) => (
 				</FormControl>
 			</CardActions>
 		</Card>
-	</Grid>
+	</Grid2>
 );
 
 const Products = (props: any) => {
@@ -187,8 +187,8 @@ const Products = (props: any) => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<Grid container spacing={5} px={{ xs: 5, md: 10 }}>
-					<Grid item xs={12} md={8} px={{ xs: 5, md: 10 }}>
+				<Grid2 container spacing={5} px={{ xs: 5, md: 10 }}>
+					<Grid2 px={{ xs: 5, md: 10 }}>
 						{data?.products?.map((item, index) => (
 							<ProductCard
 								item={item}
@@ -208,8 +208,8 @@ const Products = (props: any) => {
 								theme={theme}
 							/>
 						))}
-					</Grid>
-					<Grid item xs={12} md={4} sx={{ mt: 3 }}>
+					</Grid2>
+					<Grid2>
 						<Card sx={{ border: `1px solid ${theme?.palette?.primary?.main}` }}>
 							<Typography
 								variant='h6'
@@ -243,8 +243,8 @@ const Products = (props: any) => {
 								</Button>
 							</CardActions>
 						</Card>
-					</Grid>
-				</Grid>
+					</Grid2>
+				</Grid2>
 			</Box>
 		</>
 	);

@@ -10,7 +10,7 @@ import {
 	TableBody,
 	Paper,
 	TableContainer,
-	Grid,
+	Grid2,
 	useTheme,
 } from '@mui/material';
 import React, { useEffect } from 'react';
@@ -104,7 +104,7 @@ const CollapsableTable = (props: any) => {
 	}, [loading]);
 
 	return (
-		<Grid item xs={12}>
+		<Grid2>
 			<TableContainer component={Paper}>
 				<Table aria-label='collapsable table'>
 					<TableHead
@@ -140,7 +140,7 @@ const CollapsableTable = (props: any) => {
 					</TableBody>
 				</Table>
 			</TableContainer>
-		</Grid>
+		</Grid2>
 	);
 };
 

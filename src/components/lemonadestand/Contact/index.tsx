@@ -2,7 +2,7 @@ import {
 	Box,
 	FormControl,
 	FormHelperText,
-	Grid,
+	Grid2,
 	TextField,
 } from '@mui/material';
 import { useEffect } from 'react';
@@ -40,10 +40,10 @@ const Contact = (props: any) => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1, my: 10 }}>
-				<Grid container spacing={5} px={{ xs: 5, md: 10 }}>
+				<Grid2 container spacing={5} px={{ xs: 5, md: 10 }}>
 					{props?.formhandler?.forms[props.activeStep]?.formFields?.map(
 						(item: TFormFields, index) => (
-							<Grid item xs={12} md={6} key={index}>
+							<Grid2 key={index}>
 								<FormControl fullWidth sx={{ m: 1 }}>
 									<TextField
 										autoFocus={index === 1}
@@ -132,10 +132,10 @@ const Contact = (props: any) => {
 										</FormHelperText>
 									) : null}
 								</FormControl>
-							</Grid>
+							</Grid2>
 						)
 					)}
-				</Grid>
+				</Grid2>
 			</Box>
 		</>
 	);

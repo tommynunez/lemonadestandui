@@ -4,7 +4,7 @@ import {
 	Button,
 	FormControl,
 	FormHelperText,
-	Grid,
+	Grid2,
 	Skeleton,
 	TextField,
 	Typography,
@@ -146,10 +146,10 @@ const LemonadeTypeDetail = () => {
 		<>
 			{
 				<Box sx={{ flexGrow: 1, my: 3 }}>
-					<Grid container spacing={5} px={5}>
-						<Grid item xs={12}>
+					<Grid2 container spacing={5} px={5}>
+						<Grid2>
 							<Typography variant='h4'>Lemonade Type Detail</Typography>
-							<Grid item xs={12} md={6}>
+							<Grid2>
 								<Typography variant='subtitle1'>
 									Create a new or update an existing lemonade type. Lemonade
 									Types along with sizes correlate to a product. A product will
@@ -163,12 +163,12 @@ const LemonadeTypeDetail = () => {
 								) : (
 									<></>
 								)}
-							</Grid>
-						</Grid>
+							</Grid2>
+						</Grid2>
 						{!loading && lemonadeType ? (
 							lemonadeTypeform.formFields?.map(
 								(item: TFormFields, index: number) => (
-									<Grid item xs={12} md={6} key={index}>
+									<Grid2 key={index}>
 										<FormControl fullWidth sx={{ my: 1 }}>
 											<TextField
 												onKeyDown={(e) => {
@@ -205,19 +205,19 @@ const LemonadeTypeDetail = () => {
 												{item?.formAttribute?.label} is Required
 											</FormHelperText>
 										) : null}
-									</Grid>
+									</Grid2>
 								)
 							)
 						) : (
-							<Grid item md={6}>
+							<Grid2>
 								<Box sx={{ width: 500 }}>
 									<Skeleton />
 									<Skeleton animation='wave' />
 									<Skeleton animation={false} />
 								</Box>
-							</Grid>
+							</Grid2>
 						)}
-						<Grid item xs={12}>
+						<Grid2>
 							<Button variant='contained' onClick={() => handleSubmit()}>
 								Submit
 							</Button>{' '}
@@ -229,8 +229,8 @@ const LemonadeTypeDetail = () => {
 								}>
 								Go Back
 							</Button>
-						</Grid>
-					</Grid>
+						</Grid2>
+					</Grid2>
 				</Box>
 			}
 		</>

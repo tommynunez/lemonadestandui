@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid2, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -54,16 +54,16 @@ const ProductManagement = () => {
 
 	return (
 		<Box sx={{ height: 400, width: '100%' }}>
-			<Grid container spacing={5}>
-				<Grid item xs={12}>
+			<Grid2 container spacing={5}>
+				<Grid2>
 					<Typography variant='h4' sx={{ my: 2 }}>
 						Products
 					</Typography>
-					<Grid item xs={12} md={6}>
+					<Grid2>
 						<Typography variant='subtitle1'>Here is all products.</Typography>
-					</Grid>
-				</Grid>
-			</Grid>
+					</Grid2>
+				</Grid2>
+			</Grid2>
 			<Button
 				sx={{ my: 3 }}
 				variant='contained'

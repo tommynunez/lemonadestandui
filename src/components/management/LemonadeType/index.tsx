@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { GET_ALL_LEMONADE_TYPES } from 'src/graphql/queries/getAllLemonadeTypes';
 import ManagementGrid from 'src/components/shared/DataGrid';
 import { GridColDef } from '@mui/x-data-grid';
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid2, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const columns: GridColDef[] = [
@@ -41,18 +41,18 @@ const LemonadeType = () => {
 
 	return (
 		<Box sx={{ height: 400, width: '100%' }}>
-			<Grid container spacing={5}>
-				<Grid item xs={12}>
+			<Grid2 container spacing={5}>
+				<Grid2>
 					<Typography variant='h4' sx={{ my: 2 }}>
 						Lemonade Types
 					</Typography>
-					<Grid item xs={12} md={6}>
+					<Grid2>
 						<Typography variant='subtitle1'>
 							Here is all lemonade types.
 						</Typography>
-					</Grid>
-				</Grid>
-			</Grid>
+					</Grid2>
+				</Grid2>
+			</Grid2>
 			<Button
 				sx={{ my: 3 }}
 				variant='contained'

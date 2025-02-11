@@ -3,7 +3,7 @@ import {
 	TableRow,
 	TableCell,
 	Typography,
-	Grid,
+	Grid2,
 } from '@mui/material';
 import { useState } from 'react';
 import { GET_ALL_ORDERS } from 'src/graphql/queries/getAllOrders';
@@ -51,20 +51,20 @@ const Orders = () => {
 	};
 	return (
 		<>
-			<Grid container spacing={5} pb={5}>
-				<Grid item xs={12}>
+			<Grid2 container spacing={5} pb={5}>
+				<Grid2>
 					<Typography variant='h4' sx={{ my: 2 }}>
 						Orders
 					</Typography>
-					<Grid item xs={12} md={6}>
+					<Grid2>
 						<Typography variant='subtitle1'>
 							Here is all orders. You will notice the first row demonstrate the
 							customer information. Second row is collapsable demonstrating the
 							list items (what the customer ordered)
 						</Typography>
-					</Grid>
-				</Grid>
-			</Grid>
+					</Grid2>
+				</Grid2>
+			</Grid2>
 			<CollapsableTable
 				rows={rows}
 				subRows={subRows}

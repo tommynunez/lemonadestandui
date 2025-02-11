@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Paper, Typography } from '@mui/material';
+import { Box, Button, Grid2, Paper, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
@@ -7,8 +7,8 @@ const Landing = () => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1, my: 10 }}>
-				<Grid container spacing={5} px={{ xs: 5, mb: 10 }}>
-					<Grid item xs>
+				<Grid2 container spacing={5} px={{ xs: 5, mb: 10 }}>
+					<Grid2>
 						<Paper variant='outlined' sx={{ minHeight: '200px', p: 2 }}>
 							<Typography variant='h4'>
 								To view orders and add new products, lemonade types and sizes
@@ -23,8 +23,8 @@ const Landing = () => {
 								Management
 							</Button>
 						</Paper>
-					</Grid>
-					<Grid item xs>
+					</Grid2>
+					<Grid2>
 						<Paper variant='outlined' sx={{ minHeight: '200px', p: 2 }}>
 							<Typography variant='h4'>
 								To place an order, click the button below.
@@ -38,8 +38,8 @@ const Landing = () => {
 								Storefront
 							</Button>
 						</Paper>
-					</Grid>
-				</Grid>
+					</Grid2>
+				</Grid2>
 			</Box>
 		</>
 	);

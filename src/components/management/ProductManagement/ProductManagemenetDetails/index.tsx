@@ -5,7 +5,7 @@ import {
 	Button,
 	FormControl,
 	FormHelperText,
-	Grid,
+	Grid2,
 	InputLabel,
 	MenuItem,
 	Select,
@@ -201,10 +201,10 @@ const ProductManagementDetails = () => {
 		<>
 			{
 				<Box sx={{ flexGrow: 1, my: 3 }}>
-					<Grid container spacing={5} px={5}>
-						<Grid item xs={12}>
+					<Grid2 container spacing={5} px={5}>
+						<Grid2>
 							<Typography variant='h4'>Product Detail</Typography>
-							<Grid item xs={12} md={6}>
+							<Grid2>
 								<Typography variant='subtitle1'>
 									Create a new or update an existing product. Products contain a
 									lemonade type along with a size. Product information changes
@@ -219,12 +219,12 @@ const ProductManagementDetails = () => {
 								) : (
 									<></>
 								)}
-							</Grid>
-						</Grid>
+							</Grid2>
+						</Grid2>
 						{!loading && !loadingLemonadeTypes && !loadingSizes && product ? (
 							productform.formFields?.map(
 								(item: TFormFields, index: number) => (
-									<Grid item xs={12} md={6} key={index}>
+									<Grid2 key={index}>
 										<FormControl fullWidth sx={{ my: 1 }}>
 											{item.formAttribute.type === 'number' ? (
 												<TextField
@@ -322,19 +322,19 @@ const ProductManagementDetails = () => {
 												</FormHelperText>
 											) : null}
 										</FormControl>
-									</Grid>
+									</Grid2>
 								)
 							)
 						) : (
-							<Grid item md={6}>
+							<Grid2>
 								<Box sx={{ width: 500 }}>
 									<Skeleton />
 									<Skeleton animation='wave' />
 									<Skeleton animation={false} />
 								</Box>
-							</Grid>
+							</Grid2>
 						)}
-						<Grid item xs={12}>
+						<Grid2>
 							<Button variant='contained' onClick={() => handleSubmit()}>
 								Submit
 							</Button>{' '}
@@ -344,8 +344,8 @@ const ProductManagementDetails = () => {
 								onClick={() => (window.location.href = '/management/product/')}>
 								Go Back
 							</Button>
-						</Grid>
-					</Grid>
+						</Grid2>
+					</Grid2>
 				</Box>
 			}
 		</>

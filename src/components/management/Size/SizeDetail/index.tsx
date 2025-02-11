@@ -4,7 +4,7 @@ import {
 	Button,
 	FormControl,
 	FormHelperText,
-	Grid,
+	Grid2,
 	Skeleton,
 	TextField,
 	Typography,
@@ -140,10 +140,10 @@ const SizeDetail = () => {
 		<>
 			{
 				<Box sx={{ flexGrow: 1, my: 3 }}>
-					<Grid container spacing={5} px={5}>
-						<Grid item xs={12}>
+					<Grid2 container spacing={5} px={5}>
+						<Grid2>
 							<Typography variant='h4'>Size Detail</Typography>
-							<Grid item xs={12} md={6}>
+							<Grid2>
 								<Typography variant='subtitle1'>
 									Create a new or update an existing size. Sizes along with
 									lemoande types correlate to a product. A product will
@@ -157,11 +157,11 @@ const SizeDetail = () => {
 								) : (
 									<></>
 								)}
-							</Grid>
-						</Grid>
+							</Grid2>
+						</Grid2>
 						{!loading && size ? (
 							sizeform.formFields?.map((item: TFormFields, index: number) => (
-								<Grid item xs={12} md={6} key={index}>
+								<Grid2 key={index}>
 									<FormControl fullWidth sx={{ my: 1 }}>
 										<TextField
 											onKeyDown={(e) => {
@@ -196,18 +196,18 @@ const SizeDetail = () => {
 											{item?.formAttribute?.label} is Required
 										</FormHelperText>
 									) : null}
-								</Grid>
+								</Grid2>
 							))
 						) : (
-							<Grid item md={6}>
+							<Grid2>
 								<Box sx={{ width: 500 }}>
 									<Skeleton />
 									<Skeleton animation='wave' />
 									<Skeleton animation={false} />
 								</Box>
-							</Grid>
+							</Grid2>
 						)}
-						<Grid item xs={12}>
+						<Grid2>
 							<Button variant='contained' onClick={() => handleSubmit()}>
 								Submit
 							</Button>{' '}
@@ -217,8 +217,8 @@ const SizeDetail = () => {
 								onClick={() => (window.location.href = '/management/size/')}>
 								Go Back
 							</Button>
-						</Grid>
-					</Grid>
+						</Grid2>
+					</Grid2>
 				</Box>
 			}
 		</>
