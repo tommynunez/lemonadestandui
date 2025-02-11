@@ -1,4 +1,4 @@
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import {
 	Box,
 	Button,
@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ADD_SIZE } from 'graphql/mutations/addSize';
-import { UPDATE_SIZE } from 'graphql/mutations/updateSize';
-import { GET_SIZE_ID } from 'graphql/queries/getSizeById';
-import { Size } from 'types/product/Size';
-import { TForm } from 'types/TForm';
-import { TFormFields } from 'types/TFormFields';
+import { ADD_SIZE } from '../../../../graphql/mutations/addSize';
+import { UPDATE_SIZE } from '../../../../graphql/mutations/updateSize';
+import { GET_SIZE_ID } from '../../../../graphql/queries/getSizeById';
+import { Size } from '../../../../types/product/Size';
+import { TForm } from '../../../../types/TForm';
+import { TFormFields } from '../../../../types/TFormFields';
 
 const formsInitialstate: TForm = {
 	name: 'Size',
@@ -38,9 +38,8 @@ const SizeDetail = () => {
 	const [sizeform, setSizeform] = useState<TForm>(formsInitialstate);
 	const { id } = useParams();
 	const [getSizebyID, { loading }] = useLazyQuery(GET_SIZE_ID);
-	const [addSize, { loading: loadingAddOrder }] = useMutation(ADD_SIZE);
-	const [updateSize, { loading: loadingUpdateOrder }] =
-		useMutation(UPDATE_SIZE);
+	const [addSize] = useMutation(ADD_SIZE);
+	const [updateSize] = useMutation(UPDATE_SIZE);
 	const [doesRecordExist, setDoesRecordExist] = useState(false);
 
 	useEffect(() => {
@@ -182,7 +181,7 @@ const SizeDetail = () => {
 											}
 											onChange={(e) => {
 												const value = e.target.value;
-												let sz = { ...size };
+												const sz = { ...size };
 												sz.name = value;
 												setSize(sz);
 												handleSettingFormhandlerFields(index, item);

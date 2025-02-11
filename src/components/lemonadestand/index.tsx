@@ -99,7 +99,7 @@ const LemonadeStand = () => {
 		formhandlerIninitialState
 	);
 
-	const [addOrder, { loading }] = useMutation(ADD_ORDER);
+	const [addOrder] = useMutation(ADD_ORDER);
 	const navigate = useNavigate();
 
 	const setFormhasLoadedTrue = (formhandler: any, formIndex: number) => {
@@ -155,7 +155,7 @@ const LemonadeStand = () => {
 
 	const handleCheckinglineItem = () => {
 		return (
-			lineItems.filter((item, index) => {
+			lineItems.filter((item) => {
 				return item.quantity > 0;
 			}).length === 0
 		);
@@ -166,7 +166,7 @@ const LemonadeStand = () => {
 			contactInformation as ContactInformation
 		);
 		return (
-			formhandler?.forms[activeStep]?.formFields?.filter((item, index) => {
+			formhandler?.forms[activeStep]?.formFields?.filter((_item, index) => {
 				return (
 					!contactInformation[contactInformationkeys[index]] ||
 					(contactInformationkeys[index] === 'email' &&
@@ -216,11 +216,9 @@ const LemonadeStand = () => {
 		}
 
 		if (activeStep === steps.length - 1) {
-			const filteredLineitems = lineItems.filter(
-				(item: LineItem, index: number) => {
-					return item.quantity && item.quantity > 0;
-				}
-			);
+			const filteredLineitems = lineItems.filter((item: LineItem) => {
+				return item.quantity && item.quantity > 0;
+			});
 			//Todo send data to server
 			//reroute user to confirmation page
 
@@ -269,9 +267,9 @@ const LemonadeStand = () => {
 		});
 	};
 
-	const handleReset = () => {
+	/*const handleReset = () => {
 		setActiveStep(0);
-	};
+	};*/
 
 	const comps = [
 		React.createElement(Product, {

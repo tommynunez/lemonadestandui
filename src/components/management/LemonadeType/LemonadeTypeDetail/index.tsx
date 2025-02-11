@@ -1,4 +1,4 @@
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import {
 	Box,
 	Button,
@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ADD_LEMONADE_TYPE } from 'graphql/mutations/addLemonadetype';
-import { UPDATE_LEMONADE_TYPE } from 'graphql/mutations/updateLemonadeType';
-import { GET_LEMONADE_TYPE_ID } from 'graphql/queries/getLemonadeTypeById';
-import { LemonadeType } from 'types/product/LemonadeType';
-import { TForm } from 'types/TForm';
-import { TFormFields } from 'types/TFormFields';
+import { ADD_LEMONADE_TYPE } from '../../../../graphql/mutations/addLemonadetype';
+import { UPDATE_LEMONADE_TYPE } from '../../../../graphql/mutations/updateLemonadeType';
+import { GET_LEMONADE_TYPE_ID } from '../../../../graphql/queries/getLemonadeTypeById';
+import { LemonadeType } from '../../../../types/product/LemonadeType';
+import { TForm } from '../../../../types/TForm';
+import { TFormFields } from '../../../../types/TFormFields';
 
 const formsInitialstate: TForm = {
 	name: 'lemonade type',
@@ -41,10 +41,8 @@ const LemonadeTypeDetail = () => {
 		useState<TForm>(formsInitialstate);
 	const { id } = useParams();
 	const [getLemonadetype, { loading }] = useLazyQuery(GET_LEMONADE_TYPE_ID);
-	const [addLemonadeType, { loading: loadingAddOrder }] =
-		useMutation(ADD_LEMONADE_TYPE);
-	const [updateLemonadeType, { loading: loadingUpdateOrder }] =
-		useMutation(UPDATE_LEMONADE_TYPE);
+	const [addLemonadeType] = useMutation(ADD_LEMONADE_TYPE);
+	const [updateLemonadeType] = useMutation(UPDATE_LEMONADE_TYPE);
 	const [doesRecordExist, setDoesRecordExist] = useState(false);
 
 	useEffect(() => {
@@ -190,7 +188,7 @@ const LemonadeTypeDetail = () => {
 												}
 												onChange={(e) => {
 													const value = e.target.value;
-													let lt = { ...lemonadeType };
+													const lt = { ...lemonadeType };
 													lt.name = value;
 													setLemonadeType(lt);
 													handleSettingFormhandlerFields(index, item);

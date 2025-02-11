@@ -1,10 +1,15 @@
 import { defineConfig } from 'vite';
-import reactPlugin from '@vitejs/plugin-react';
-import macrosPlugin from 'vite-plugin-babel-macros';
-import md from 'vite-plugin-react-md';
-import { Mode, plugin } from 'vite-plugin-markdown';
-const path = require('path');
+import react from '@vitejs/plugin-react';
 
+// https://vite.dev/config/
 export default defineConfig({
-	plugins: [macrosPlugin(), reactPlugin(), plugin()],
+	plugins: [react()],
+	build: {
+		rollupOptions: {
+			external: [
+				'react', // ignore react stuff
+				'react-dom',
+			],
+		},
+	},
 });

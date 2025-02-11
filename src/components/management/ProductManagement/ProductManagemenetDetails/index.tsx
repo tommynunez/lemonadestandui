@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import {
 	Box,
@@ -14,15 +15,15 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ADD_PRODUCT } from 'graphql/mutations/addProduct';
-import { UPDATE_PRODUCT } from 'graphql/mutations/updateProduct';
-import { GET_ALL_LEMONADE_TYPES } from 'graphql/queries/getAllLemonadeTypes';
-import { GET_ALL_SIZES } from 'graphql/queries/getAllSizes';
-import { GET_PRODUCT_BY_ID } from 'graphql/queries/getProductById';
-import { Product } from 'types/product/Product';
-import { ProductMutationType } from 'types/product/ProductMutationType';
-import { TForm } from 'types/TForm';
-import { TFormFields } from 'types/TFormFields';
+import { ADD_PRODUCT } from '../../../../graphql/mutations/addProduct';
+import { UPDATE_PRODUCT } from '../../../../graphql/mutations/updateProduct';
+import { GET_ALL_LEMONADE_TYPES } from '../../../../graphql/queries/getAllLemonadeTypes';
+import { GET_ALL_SIZES } from '../../../../graphql/queries/getAllSizes';
+import { GET_PRODUCT_BY_ID } from '../../../../graphql/queries/getProductById';
+import { Product } from '../../../../types/product/Product';
+import { ProductMutationType } from '../../../../types/product/ProductMutationType';
+import { TForm } from '../../../../types/TForm';
+import { TFormFields } from '../../../../types/TFormFields';
 
 const formsInitialstate: TForm = {
 	name: 'product',
@@ -59,8 +60,8 @@ const formsInitialstate: TForm = {
 };
 
 const ProductManagementDetails = () => {
-	let [product, setProduct] = useState<Product>({} as Product);
-	const [productMutation, setProductMutation] = useState<ProductMutationType>(
+	const [product, setProduct] = useState<Product>({} as Product);
+	const [productMutation] = useState<ProductMutationType>(
 		{} as ProductMutationType
 	);
 	const [productform, setproductform] = useState<TForm>(formsInitialstate);
@@ -70,9 +71,8 @@ const ProductManagementDetails = () => {
 		GET_ALL_LEMONADE_TYPES
 	);
 	const { data: sizeData, loading: loadingSizes } = useQuery(GET_ALL_SIZES);
-	const [addProduct, { loading: loadingAddOrder }] = useMutation(ADD_PRODUCT);
-	const [updateProduct, { loading: loadingUpdateOrder }] =
-		useMutation(UPDATE_PRODUCT);
+	const [addProduct] = useMutation(ADD_PRODUCT);
+	const [updateProduct] = useMutation(UPDATE_PRODUCT);
 	const [doesRecordExist, setDoesRecordExist] = useState(false);
 
 	useEffect(() => {
@@ -254,7 +254,7 @@ const ProductManagementDetails = () => {
 														const re = /^-?\d+(\.\d{1,2})?$/;
 														const value = e.target.value;
 														if (re.test(value) || !value) {
-															let lt = { ...product };
+															const lt = { ...product };
 															lt.amount = value;
 															setProduct(lt);
 															handleSettingFormhandlerFields(index, item);
