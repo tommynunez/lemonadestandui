@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { UPDATE_SIZE } from 'src/graphql/mutations/updateSize';
-import { GET_SIZE_ID } from 'src/graphql/queries/getSizeById';
-import { Size } from 'src/types/product/Size';
-import { TForm } from 'src/types/TForm';
-import { TFormFields } from 'src/types/TFormFields';
-import { ADD_SIZE } from 'src/graphql/mutations/addSize';
+import { UPDATE_SIZE } from 'graph/mutations/updateSize';
+import { GET_SIZE_ID } from 'graph/queries/getSizeById';
+import { Size } from 'types/product/Size';
+import { TForm } from 'types/TForm';
+import { TFormFields } from 'types/TFormFields';
+import { ADD_SIZE } from 'graph/mutations/addSize';
 
 const formsInitialstate: TForm = {
 	name: 'Size',

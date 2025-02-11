@@ -7,16 +7,16 @@ import StepperFooter from '../shared/Layout/StepperLayout/Footer';
 import StepperHeader from '../shared/Layout/StepperLayout/Header';
 import Contact from './Contact';
 import ErrorKnockOutModal from '../shared/Modal';
-import { ContactInformation } from 'src/types/contact/ContactInformation';
-import { LineItem } from 'src/types/product/LineItem';
-import { ErrorHandler } from 'src/types/Error';
-import { FormHandler } from 'src/types/FormHandler';
-import { TForm } from 'src/types/TForm';
+import { ContactInformation } from 'types/contact/ContactInformation';
+import { LineItem } from 'types/product/LineItem';
+import { ErrorHandler } from 'types/Error';
+import { FormHandler } from 'types/FormHandler';
+import { TForm } from 'types/TForm';
 import { useState } from 'react';
-import { ADD_ORDER } from 'src/graphql/mutations/addOrder';
+import { ADD_ORDER } from 'graph/mutations/addOrder';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { TFormFields } from 'src/types/TFormFields';
+import { TFormFields } from 'types/TFormFields';
 
 const emailRegex =
 	/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { LineItem } from 'src/types/product/LineItem';
-import { ContactInformation } from 'src/types/contact/ContactInformation';
+import { LineItem } from 'types/product/LineItem';
+import { ContactInformation } from 'types/contact/ContactInformation';
 import {
 	Container,
 	Paper,
@@ -13,9 +13,9 @@ import {
 	Typography,
 	useTheme,
 } from '@mui/material';
-import { GET_ALL_PRODUCTS } from 'src/graphql/queries/getAllProducts';
+import { GET_ALL_PRODUCTS } from 'graph/queries/getAllProducts';
 import { useQuery } from '@apollo/client';
-import { Product } from 'src/types/product/Product';
+import { Product } from 'types/product/Product';
 
 type ReviewProps = {
 	lineItems: Array<LineItem>;

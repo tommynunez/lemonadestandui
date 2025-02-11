@@ -6,9 +6,9 @@ import {
 	Grid2,
 } from '@mui/material';
 import { useState } from 'react';
-import { GET_ALL_ORDERS } from 'src/graphql/queries/getAllOrders';
-import { LineItem } from 'src/types/product/LineItem';
-import CollapsableTable from 'src/components/shared/CollapsableTable';
+import { GET_ALL_ORDERS } from 'graph/queries/getAllOrders';
+import { LineItem } from 'types/product/LineItem';
+import CollapsableTable from 'components/shared/CollapsableTable';
 
 const OrdersSubRows = (props: any) => (
 	<TableBody>

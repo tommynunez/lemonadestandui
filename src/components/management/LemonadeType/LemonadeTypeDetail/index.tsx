@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ADD_LEMONADE_TYPE } from 'src/graphql/mutations/addLemonadetype';
-import { UPDATE_LEMONADE_TYPE } from 'src/graphql/mutations/updateLemonadeType';
-import { GET_LEMONADE_TYPE_ID } from 'src/graphql/queries/getLemonadeTypeById';
-import { LemonadeType } from 'src/types/product/LemonadeType';
-import { TForm } from 'src/types/TForm';
-import { TFormFields } from 'src/types/TFormFields';
+import { ADD_LEMONADE_TYPE } from 'graph/mutations/addLemonadetype';
+import { UPDATE_LEMONADE_TYPE } from 'graph/mutations/updateLemonadeType';
+import { GET_LEMONADE_TYPE_ID } from 'graph/queries/getLemonadeTypeById';
+import { LemonadeType } from 'types/product/LemonadeType';
+import { TForm } from 'types/TForm';
+import { TFormFields } from 'types/TFormFields';
 
 const formsInitialstate: TForm = {
 	name: 'lemonade type',
