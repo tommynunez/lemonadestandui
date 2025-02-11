@@ -124,15 +124,15 @@ const LemonadeStand = () => {
 		index: number
 	) => {
 		formhandler.isDirty = true;
-		let form = formhandler?.forms[activeStep];
-		let fields = form?.formFields;
+		const form = formhandler?.forms[activeStep];
+		const fields = form?.formFields;
 		fields[index].isTouched = true;
 		form.formFields = fields;
 		setFormHandler(formhandler);
 	};
 
 	const handleForcingIsTouchedonallFields = (value: boolean) => {
-		let formFields = [] as Array<TFormFields>;
+		const formFields = [] as Array<TFormFields>;
 		formhandler.forms[activeStep].formFields.map((item: TFormFields, index) => {
 			if (
 				activeStep === 0 &&

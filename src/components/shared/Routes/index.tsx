@@ -1,17 +1,17 @@
 import { useRoutes } from 'react-router-dom';
-import Landing from 'src/landing';
-import LemonadeStand from 'src/lemonadestand';
-import Confirmation from 'src/lemonadestand/Confirmation';
-import Management from 'src/management';
-import LemonadeType from 'src/management/LemonadeType';
-import LemonadeTypeDetail from 'src/management/LemonadeType/LemonadeTypeDetail';
-import Orders from 'src/management/Orders';
-import ProductManagement from 'src/management/ProductManagement';
-import ProductManagementDetails from 'src/management/ProductManagement/ProductManagemenetDetails';
-import Size from 'src/management/Size';
-import SizeDetail from 'src/management/Size/SizeDetail';
+import Landing from 'src/components/landing';
+import LemonadeStand from 'src/components/lemonadestand';
+import Confirmation from 'src/components/lemonadestand/Confirmation';
+import Management from 'src/components/management';
+import LemonadeType from 'src/components/management/LemonadeType';
+import Orders from 'src/components/management/Orders';
+import ProductManagement from 'src/components/management/ProductManagement';
+import ProductManagementDetails from 'src/components/management/ProductManagement/ProductManagemenetDetails';
+import Size from 'src/components/management/Size';
+import SizeDetail from 'src/components/management/Size/SizeDetail';
 import Layout from '../Layout';
 import ManagementLayout from '../Layout/ManagmentLayout';
+import LemonadeTypeDetail from 'src/components/management/LemonadeType/LemonadeTypeDetail';
 
 const Routing = () => {
 	const element = useRoutes([

@@ -3,7 +3,7 @@ import { GridColDef } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GET_ALL_SIZES } from 'src/graphql/queries/getAllSizes';
-import ManagementGrid from 'src/shared/DataGrid';
+import ManagementGrid from 'src/components/shared/DataGrid';
 
 const columns: GridColDef[] = [
 	{
