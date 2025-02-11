@@ -38,9 +38,9 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:latest
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{vars.VERSION_NUMBER}}.${{ github.run_number }}-${{steps.branchname.outputs.MODIFIED_BRANCH_NAME}},
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{vars.VERSION_NUMBER}}.${{ github.run_number }}-${{env.MODIFIED_BRANCH_NAME}},
           #build-args: |
           #  "NODE_ENV=${{ vars.NODE_ENV }}"
 
       - name: Show default environment variables
-        run: echo "${{steps.branchname}}"
+        run: echo "${{env}}"
