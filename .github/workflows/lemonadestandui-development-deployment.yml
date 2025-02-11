@@ -43,4 +43,4 @@ jobs:
           #  "NODE_ENV=${{ vars.NODE_ENV }}"
 
       - name: Show default environment variables
-        run: echo "${{steps.branchname.outputs.MODIFIED_BRANCH_NAME}}"
+        run: echo "${{steps.branchname}}"
