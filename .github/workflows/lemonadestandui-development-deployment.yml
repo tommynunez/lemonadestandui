@@ -28,7 +28,7 @@ jobs:
         env:
           name: '${{github.ref_name}}'
         run: |
-          echo "branchname=${name//\//-}" >> $GITHUB_ENV
+          echo "MODIFIED_BRANCH_NAME=${name//\//-}" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         id: push
@@ -38,6 +38,6 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:latest
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{vars.VERSION_NUMBER}}.${{ github.run_number }}-${{steps.branchname.outputs.branchname}},
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{vars.VERSION_NUMBER}}.${{ github.run_number }}-${{steps.branchname.outputs.MODIFIED_BRANCH_NAME}},
           #build-args: |
           #  "NODE_ENV=${{ vars.NODE_ENV }}"
