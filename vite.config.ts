@@ -5,14 +5,6 @@ import path from 'path';
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [react()],
-	build: {
-		rollupOptions: {
-			external: [
-				'react', // ignore react stuff
-				'react-dom',
-			],
-		},
-	},
 	resolve: {
 		alias: {
 			components: path.resolve(__dirname, './src/components'),
