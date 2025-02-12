@@ -38,6 +38,6 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:latest
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{vars.VERSION_NUMBER}}.${{ github.run_number }},
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{vars.VERSION_NUMBER}}.${{ github.run_number }}-${{env.MODIFIED_BRANCH_NAME}},
           #build-args: |
           #  "NODE_ENV=${{ vars.NODE_ENV }}"
