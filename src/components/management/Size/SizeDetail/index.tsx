@@ -161,7 +161,7 @@ const SizeDetail = () => {
 						</Grid2>
 						{!loading && size ? (
 							sizeform.formFields?.map((item: TFormFields, index: number) => (
-								<Grid2 key={index}>
+								<Grid2 size={{ xs: 12, md: 8 }} key={index}>
 									<FormControl fullWidth sx={{ my: 1 }}>
 										<TextField
 											onKeyDown={(e) => {
@@ -207,7 +207,9 @@ const SizeDetail = () => {
 								</Box>
 							</Grid2>
 						)}
-						<Grid2>
+					</Grid2>
+					<Grid2 container spacing={5} px={5} py={5}>
+						<Grid2 size={{ xs: 12, md: 4 }}>
 							<Button variant='contained' onClick={() => handleSubmit()}>
 								Submit
 							</Button>{' '}

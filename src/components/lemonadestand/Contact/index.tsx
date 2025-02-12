@@ -43,7 +43,7 @@ const Contact = (props: any) => {
 				<Grid2 container spacing={5} px={{ xs: 5, md: 10 }}>
 					{props?.formhandler?.forms[props.activeStep]?.formFields?.map(
 						(item: TFormFields, index) => (
-							<Grid2 key={index}>
+							<Grid2 size={{ xs: 12, md: 6 }} key={index}>
 								<FormControl fullWidth sx={{ m: 1 }}>
 									<TextField
 										autoFocus={index === 1}

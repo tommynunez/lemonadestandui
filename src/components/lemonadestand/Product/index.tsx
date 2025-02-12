@@ -21,7 +21,7 @@ import { TFormFields } from 'types/TFormFields';
 import { TFormAttribute } from 'types/FormAttributes';
 
 const ProductCard = (props: any) => (
-	<Grid2>
+	<Grid2 my={2}>
 		<Card sx={{ border: `1px solid ${props?.theme?.palette?.primary.main}` }}>
 			<CardContent>
 				<Typography color='text.secondary' gutterBottom>
@@ -188,7 +188,7 @@ const Products = (props: any) => {
 		<>
 			<Box sx={{ flexGrow: 1 }}>
 				<Grid2 container spacing={5} px={{ xs: 5, md: 10 }}>
-					<Grid2 px={{ xs: 5, md: 10 }}>
+					<Grid2 size={{ xs: 12, md: 8 }} px={{ xs: 5, md: 10 }}>
 						{data?.products?.map((item, index) => (
 							<ProductCard
 								item={item}
@@ -209,7 +209,7 @@ const Products = (props: any) => {
 							/>
 						))}
 					</Grid2>
-					<Grid2>
+					<Grid2 py={2} size={{ xs: 12, md: 4 }} px={{ xs: 5, md: 10 }}>
 						<Card sx={{ border: `1px solid ${theme?.palette?.primary?.main}` }}>
 							<Typography
 								variant='h6'

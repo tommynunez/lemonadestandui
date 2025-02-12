@@ -224,7 +224,7 @@ const ProductManagementDetails = () => {
 						{!loading && !loadingLemonadeTypes && !loadingSizes && product ? (
 							productform.formFields?.map(
 								(item: TFormFields, index: number) => (
-									<Grid2 key={index}>
+									<Grid2 size={{ xs: 12, md: 8 }} key={index}>
 										<FormControl fullWidth sx={{ my: 1 }}>
 											{item.formAttribute.type === 'number' ? (
 												<TextField
@@ -334,6 +334,8 @@ const ProductManagementDetails = () => {
 								</Box>
 							</Grid2>
 						)}
+					</Grid2>
+					<Grid2 container spacing={5} px={5} py={5}>
 						<Grid2>
 							<Button variant='contained' onClick={() => handleSubmit()}>
 								Submit
