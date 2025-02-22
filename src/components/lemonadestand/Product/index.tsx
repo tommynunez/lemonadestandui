@@ -136,7 +136,7 @@ const Products = (props: any) => {
 
 			// set form fields for product dynamically so we can error handle correctly
 		}
-	}, [loading]);
+	});
 
 	useEffect(() => {
 		// set formhasLoaded to true on component mount
