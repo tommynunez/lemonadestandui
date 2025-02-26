@@ -17,15 +17,17 @@ const Routing = () => {
 	const element = useRoutes([
 		{
 			path: '/',
-			element: <Layout element={<Landing />} />,
+			element: (
+				<Layout disableGutters={true} maxWidth={false} element={<Landing />} />
+			),
 		},
 		{
 			path: '/storefront/confirmation/:id',
-			element: <Layout element={<Confirmation />} />,
+			element: <Layout disableGutters={false} element={<Confirmation />} />,
 		},
 		{
 			path: '/storefront',
-			element: <Layout element={<LemonadeStand />} />,
+			element: <Layout disableGutters={false} element={<LemonadeStand />} />,
 		},
 		{
 			path: '/management',

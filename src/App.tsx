@@ -4,12 +4,17 @@ import Routing from './components/shared/Routes';
 const theme = createTheme({
 	palette: {
 		primary: {
-			main: '#ffee58',
-			contrastText: '#000',
+			main: '#fef861',
+			contrastText: '#33332a',
+			light: '#fff',
 		},
 		secondary: {
-			main: '#bdbdbd',
-			contrastText: '#fff',
+			main: '#eae7d8',
+			contrastText: '#33332a',
+		},
+		text: {
+			primary: '#33332a',
+			secondary: '#33332a',
 		},
 	},
 });

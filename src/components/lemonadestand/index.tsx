@@ -19,8 +19,10 @@ import { useNavigate } from 'react-router-dom';
 import { TFormFields } from 'types/TFormFields';
 
 const emailRegex =
+	// eslint-disable-next-line no-useless-escape
 	/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const phoneNumberRegex =
+	// eslint-disable-next-line no-useless-escape
 	/^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/i;
 
 const formsInitialstate: Array<TForm> = [

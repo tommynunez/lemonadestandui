@@ -76,7 +76,7 @@ function Row(props: {
 								) : (
 									<Typography>
 										Please pass in an element returns a TableBody element with
-										neccesary child components.{' '}
+										necessary child components.{' '}
 									</Typography>
 								)}
 							</Table>

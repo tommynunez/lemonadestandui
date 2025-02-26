@@ -14,6 +14,7 @@ import {
 	FormHelperText,
 	Button,
 	useTheme,
+	CardMedia,
 } from '@mui/material';
 import { LineItem } from 'types/product/LineItem';
 import { Product } from 'types/product/Product';
@@ -40,6 +41,12 @@ const ProductCard = (props: any) => (
 						: props?.lineItems[props?.index]?.cost}
 				</Typography>
 			</CardContent>
+			<CardMedia
+				component='img'
+				sx={{ width: 151 }}
+				image='/static/images/cards/live-from-space.jpg'
+				alt='Live from space album cover'
+			/>
 			<CardActions>
 				<FormControl
 					sx={{ m: 1, width: '8em' }}
@@ -187,35 +194,33 @@ const Products = (props: any) => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<Grid2 container spacing={5} px={{ xs: 5, md: 10 }}>
-					<Grid2 size={{ xs: 12, md: 8 }} px={{ xs: 5, md: 10 }}>
+				<Grid2 container spacing={5}>
+					<Grid2 size={{ xs: 12, md: 8 }}>
 						{data?.products?.map((item, index) => (
-							<ProductCard
-								item={item}
-								key={index}
-								handleSettingQuantity={handleSettingQuantity}
-								lineItems={props?.lineItems}
-								index={index}
-								formhandler={props.formhandler}
-								activeStep={props?.activeStep}
-								setFormHandler={props.setFormHandler}
-								handleSettingFormhandlerFields={
-									props?.handleSettingFormhandlerFields
-								}
-								handleForcingIsTouchedonallFields={
-									props?.handleForcingIsTouchedonallFields
-								}
-								theme={theme}
-							/>
+							<Grid2 size={{ xs: 12, md: 8 }}>
+								<ProductCard
+									item={item}
+									key={index}
+									handleSettingQuantity={handleSettingQuantity}
+									lineItems={props?.lineItems}
+									index={index}
+									formhandler={props.formhandler}
+									activeStep={props?.activeStep}
+									setFormHandler={props.setFormHandler}
+									handleSettingFormhandlerFields={
+										props?.handleSettingFormhandlerFields
+									}
+									handleForcingIsTouchedonallFields={
+										props?.handleForcingIsTouchedonallFields
+									}
+									theme={theme}
+								/>
+							</Grid2>
 						))}
 					</Grid2>
-					<Grid2 py={2} size={{ xs: 12, md: 4 }} px={{ xs: 5, md: 10 }}>
+					<Grid2 py={2} size={{ xs: 12, md: 4 }}>
 						<Card sx={{ border: `1px solid ${theme?.palette?.primary?.main}` }}>
-							<Typography
-								variant='h6'
-								color={theme?.palette?.secondary?.main}
-								py={{ xs: 5, md: 5 }}
-								px={{ xs: 2 }}>
+							<Typography variant='h6' py={{ xs: 5, md: 5 }} px={{ xs: 2 }}>
 								Your total amount will be $
 								{props?.lineItems && props?.lineItems.length > 0
 									? props?.lineItems
