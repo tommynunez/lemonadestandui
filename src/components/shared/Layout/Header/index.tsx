@@ -1,10 +1,10 @@
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { useTheme } from '@mui/material';
 //import { StyledAppBarImage } from './index.styles';
+import appBarLogo from '/images/logo-no-background-2.png';
 
 const Header = () => {
 	const theme = useTheme();
@@ -31,9 +31,7 @@ const Header = () => {
           </IconButton> */}
 					{/*<StyledAppBarImage width='40em' height='40em' />*/}
 					<Link href='/' sx={{ color: theme.palette.primary.contrastText }}>
-						<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-							Lemonade Stand
-						</Typography>
+						<img src={appBarLogo} width={'200px'} height={'40px'} />
 					</Link>
 				</Toolbar>
 			</AppBar>
