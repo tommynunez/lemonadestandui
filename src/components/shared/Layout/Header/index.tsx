@@ -31,7 +31,7 @@ const Header = () => {
           </IconButton> */}
 					{/*<StyledAppBarImage width='40em' height='40em' />*/}
 					<Link href='/' sx={{ color: theme.palette.primary.contrastText }}>
-						<img src={appBarLogo} width={'200px'} height={'40px'} />
+						<img src={appBarLogo} width={'175px'} height={'40px'} />
 					</Link>
 				</Toolbar>
 			</AppBar>

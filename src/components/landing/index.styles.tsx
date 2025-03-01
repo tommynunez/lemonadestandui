@@ -49,4 +49,8 @@ export const StyledBoxFlexContainer = styled(Box)`
 	height: 50em;
 `;
 
-export const StyledBox = styled(Box)``;
+export const StyledImage = styled.img`
+	border-radius: 8px;
+	width: 225px;
+	height: 225px;
+`;

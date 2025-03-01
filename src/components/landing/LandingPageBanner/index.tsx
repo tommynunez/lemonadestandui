@@ -7,7 +7,7 @@ import {
 	StyledBanner,
 	StyledBannerBackground,
 	StyledBgBanner,
-	StyledBox,
+	StyledImage,
 	StyledBoxFlexContainer,
 	StyledLeftContainer,
 	StyledRightContainer,
@@ -39,45 +39,45 @@ const LandingPageBanner = () => {
 					</StyledLeftContainer>
 					<StyledRightContainer>
 						<StyledBoxFlexContainer>
-							<StyledBox margin='0 .25em 0 0'>
+							<Box margin='0 .25em 0 0'>
 								<Box>
-									<img src={bannerImg} width={'225px'} height={'225px'} />
+									<StyledImage src={bannerImg} />
 								</Box>
 								<Box>
-									<img src={bannerImg2} width={'225px'} height={'225px'} />
+									<StyledImage src={bannerImg2} />
 								</Box>
 								<Box>
-									<img src={bannerImg} width={'225px'} height={'225px'} />
+									<StyledImage src={bannerImg} />
 								</Box>
-							</StyledBox>
-							<StyledBox margin='-105px .25em 0 0'>
+							</Box>
+							<Box margin='-105px .25em 0 0'>
 								<Box>
-									<img src={bannerImg2} width={'225px'} height={'225px'} />
-								</Box>
-								<Box>
-									<img src={bannerImg} width={'225px'} height={'225px'} />
+									<StyledImage src={bannerImg2} />
 								</Box>
 								<Box>
-									<img src={bannerImg2} width={'225px'} height={'225px'} />
+									<StyledImage src={bannerImg} />
 								</Box>
 								<Box>
-									<img src={bannerImg} width={'225px'} height={'225px'} />
-								</Box>
-							</StyledBox>
-							<StyledBox>
-								<Box>
-									<img src={bannerImg} width={'225px'} height={'225px'} />
+									<StyledImage src={bannerImg2} />
 								</Box>
 								<Box>
-									<img src={bannerImg2} width={'225px'} height={'225px'} />
+									<StyledImage src={bannerImg} />
+								</Box>
+							</Box>
+							<Box>
+								<Box>
+									<StyledImage src={bannerImg} />
 								</Box>
 								<Box>
-									<img src={bannerImg} width={'225px'} height={'225px'} />
+									<StyledImage src={bannerImg2} />
 								</Box>
 								<Box>
-									<img src={bannerImg2} width={'225px'} height={'225px'} />
+									<StyledImage src={bannerImg} />
 								</Box>
-							</StyledBox>
+								<Box>
+									<StyledImage src={bannerImg2} />
+								</Box>
+							</Box>
 						</StyledBoxFlexContainer>
 					</StyledRightContainer>
 				</StyledBanner>
