@@ -6,16 +6,15 @@ import { Box } from '@mui/material';
 /**background-image: linear-gradient(rgba(230, 180, 0, 0),	rgb(253, 250, 226) 100%);*/
 export const StyledBannerBackground = styled.div`
 	position: relative;
+	overflow: hidden;
 	background-image: linear-gradient(
 		rgba(230, 180, 0, 0),
-		rgb(253, 249, 215) 100%
+		rgb(253, 249, 215) 75%
 	);
 	background-repeat: repeat-x;
 
-	border-radius: 0 4em;
-
 	@media (min-width: 900px) {
-		padding: 8rem 0;
+		padding: 17.5rem 0;
 	}
 `;
 

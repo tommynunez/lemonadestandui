@@ -22,7 +22,10 @@ const LandingPageBanner = () => {
 				<StyledBanner>
 					<StyledLeftContainer>
 						<StyledBgBanner>
-							<Typography variant='h2' margin={'0 0 .25em 0'}>
+							<Typography
+								variant='h2'
+								margin={'0 0 .25em 0'}
+								sx={{ fontWeight: '700' }}>
 								Skip the line.
 							</Typography>
 							<Typography variant='h6' margin={'0 0 1em 0'}>
@@ -39,12 +42,18 @@ const LandingPageBanner = () => {
 					</StyledLeftContainer>
 					<StyledRightContainer>
 						<StyledBoxFlexContainer>
-							<Box margin='0 .25em 0 0'>
+							<Box margin='-85px .25em 0 0'>
+								<Box>
+									<StyledImage src={bannerImg} />
+								</Box>
 								<Box>
 									<StyledImage src={bannerImg} />
 								</Box>
 								<Box>
 									<StyledImage src={bannerImg2} />
+								</Box>
+								<Box>
+									<StyledImage src={bannerImg} />
 								</Box>
 								<Box>
 									<StyledImage src={bannerImg} />
@@ -59,6 +68,9 @@ const LandingPageBanner = () => {
 								</Box>
 								<Box>
 									<StyledImage src={bannerImg2} />
+								</Box>
+								<Box>
+									<StyledImage src={bannerImg} />
 								</Box>
 								<Box>
 									<StyledImage src={bannerImg} />
