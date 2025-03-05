@@ -37,10 +37,9 @@ const Landing = (props: any) => {
 					<Box
 						sx={{
 							height: '100%',
-							width: '1200px',
 							display: 'flex',
 							margin: '0 auto',
-							padding: '1em 0',
+							padding: '1em 3em',
 							alignItems: 'center',
 							flexDirection: 'row',
 						}}>
