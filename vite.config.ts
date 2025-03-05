@@ -1,14 +1,16 @@
-import { defineConfig } from 'vite'
-import reactPlugin from '@vitejs/plugin-react';
-import macrosPlugin from "vite-plugin-babel-macros";
-import md from 'vite-plugin-react-md';
-import { Mode, plugin } from 'vite-plugin-markdown'
-const path = require("path");
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    macrosPlugin(),
-    reactPlugin(),
-    plugin(),
-  ],
+	plugins: [react()],
+	resolve: {
+		alias: {
+			components: path.resolve(__dirname, './src/components'),
+			graph: path.resolve(__dirname, './src/graph'),
+			types: path.resolve(__dirname, './src/type'),
+			'@tests': path.resolve(__dirname, './tests'),
+		},
+	},
 });
