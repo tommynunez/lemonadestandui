@@ -5,6 +5,7 @@ import path from 'path';
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [react()],
+	envPrefix: ['VITE_', 'REACT_APP_'],
 	resolve: {
 		alias: {
 			components: path.resolve(__dirname, './src/components'),

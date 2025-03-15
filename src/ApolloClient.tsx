@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 export const client = new ApolloClient({
-	uri: 'http://192.155.90.182:5000/graphql',
+	uri: import.meta.env.REACT_APP_API_URL,
 	cache: new InMemoryCache(),
 	headers: {
 		'Access-Control-Allow-Origin': '*',

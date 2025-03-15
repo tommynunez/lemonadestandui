@@ -12,6 +12,7 @@ import SizeDetail from 'components/management/Size/SizeDetail';
 import Layout from '../Layout';
 import ManagementLayout from '../Layout/ManagmentLayout';
 import LemonadeTypeDetail from 'components/management/LemonadeType/LemonadeTypeDetail';
+import Login from 'components/login';
 
 const Routing = () => {
 	const element = useRoutes([
@@ -28,6 +29,10 @@ const Routing = () => {
 		{
 			path: '/storefront',
 			element: <Layout disableGutters={false} element={<LemonadeStand />} />,
+		},
+		{
+			path: '/login',
+			element: <Layout disableGutters={false} element={<Login />} />,
 		},
 		{
 			path: '/management',
