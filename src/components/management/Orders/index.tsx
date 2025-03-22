@@ -8,7 +8,7 @@ import {
 import { useState } from 'react';
 import { GET_ALL_ORDERS } from 'graph/queries/getAllOrders';
 import { LineItem } from 'types/product/LineItem';
-import CollapsableTable from 'components/shared/CollapsableTable';
+import CollapsableTable from 'components/CollapsableTable';
 
 const OrdersSubRows = (props: any) => (
 	<TableBody>

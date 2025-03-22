@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import { GET_ALL_LEMONADE_TYPES } from 'graph/queries/getAllLemonadeTypes';
-import ManagementGrid from 'components/shared/DataGrid';
+import ManagementGrid from 'components/DataGrid';
 import { GridColDef } from '@mui/x-data-grid';
 import { Button, Grid2, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';

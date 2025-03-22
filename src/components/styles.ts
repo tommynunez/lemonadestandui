@@ -22,3 +22,23 @@ export const SyledOutlinedInput = styled(OutlinedInput)`
 		}
 	}
 `;
+
+export const StyledH4Span = styled.span`
+	h4 {
+		display: flex;
+		flex-direction: row;
+	}
+	h4:before,
+	h4:after {
+		content: '';
+		flex: 1 1;
+		border-bottom: 1px solid;
+		margin: auto;
+	}
+	h4:before {
+		margin-right: 10px;
+	}
+	h4:after {
+		margin-left: 10px;
+	}
+`;

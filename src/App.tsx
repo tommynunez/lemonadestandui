@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from '@mui/material';
-import Routing from './components/shared/Routes';
+import Routing from './components/Routes';
 
 const theme = createTheme({
 	palette: {
