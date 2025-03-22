@@ -17,6 +17,8 @@ import { Link } from 'react-router-dom';
 import { AuthenticationType } from 'types/Authentication';
 
 export const Signup = (props: AuthenticationType) => {
+	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
 	return (
 		<>
 			<Typography variant='h5' textAlign='center' fontWeight='700'>
@@ -49,6 +51,33 @@ export const Signup = (props: AuthenticationType) => {
 								onMouseUp={props.handleMouseUpPassword}
 								edge='end'>
 								{props.showPassword ? <VisibilityOff /> : <Visibility />}
+							</IconButton>
+						</InputAdornment>
+					}
+					label='Password'
+				/>
+			</FormControl>
+			<FormControl variant='outlined'>
+				<InputLabel htmlFor='outlined-adornment-password'>
+					Confirm Password
+				</InputLabel>
+				<SyledOutlinedInput
+					id='outlined-adornment-password'
+					type={showConfirmPassword ? 'text' : 'password'}
+					sx={{ input: { color: 'black' } }}
+					endAdornment={
+						<InputAdornment position='end'>
+							<IconButton
+								aria-label={
+									showConfirmPassword
+										? 'hide the password'
+										: 'display the password'
+								}
+								onClick={props.handleClickShowPassword}
+								onMouseDown={props.handleMouseDownPassword}
+								onMouseUp={props.handleMouseUpPassword}
+								edge='end'>
+								{showConfirmPassword ? <VisibilityOff /> : <Visibility />}
 							</IconButton>
 						</InputAdornment>
 					}
