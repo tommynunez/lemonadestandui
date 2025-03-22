@@ -1,5 +1,5 @@
 import { useRoutes } from 'react-router-dom';
-import Landing from 'components/landing';
+import Landing from 'pages/landing';
 import LemonadeStand from 'components/lemonadestand';
 import Confirmation from 'components/lemonadestand/Confirmation';
 import Management from 'components/management';
@@ -10,9 +10,9 @@ import ProductManagementDetails from 'components/management/ProductManagement/Pr
 import Size from 'components/management/Size';
 import SizeDetail from 'components/management/Size/SizeDetail';
 import Layout from '../Layout';
-import ManagementLayout from '../Layout/ManagmentLayout';
 import LemonadeTypeDetail from 'components/management/LemonadeType/LemonadeTypeDetail';
-import Authentication from 'components/authentication';
+import Login from 'components/login';
+import ManagementLayout from 'components/Layout/ManagmentLayout';
 
 const Routing = () => {
 	const element = useRoutes([
@@ -32,7 +32,7 @@ const Routing = () => {
 		},
 		{
 			path: '/login',
-			element: <Layout disableGutters={false} element={<Authentication />} />,
+			element: <Layout disableGutters={false} element={<Login />} />,
 		},
 		{
 			path: '/management',
