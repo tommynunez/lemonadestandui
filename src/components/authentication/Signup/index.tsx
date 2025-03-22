@@ -90,7 +90,7 @@ export const Signup = (props: AuthenticationType) => {
 				Continue with Google
 			</Button>
 			<MUILink
-				onClick={() => props.setIsSignup(true)}
+				onClick={() => props.setIsSignup(false)}
 				style={{ textAlign: 'center', cursor: 'pointer', color: '#33332a' }}>
 				Already have an account? Sign in
 			</MUILink>

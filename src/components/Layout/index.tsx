@@ -1,7 +1,7 @@
 import { Breakpoint, Container } from '@mui/material';
-import Footer from './Footer';
-import Header from './Header';
 import { StyledLayoutRootBox } from './index.styles';
+import Header from './Header';
+import Footer from './Footer';
 
 type LayoutProps = {
 	element: any;
