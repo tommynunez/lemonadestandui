@@ -1,14 +1,14 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
 	Box,
+	Button,
 	FormControl,
 	IconButton,
 	InputAdornment,
 	InputLabel,
-	OutlinedInput,
-	TextField,
 	Typography,
 } from '@mui/material';
+import { StyledTextField, SyledOutlinedInput } from 'components/styles';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -45,19 +45,22 @@ const Login = () => {
 				<Typography variant='h5' textAlign='center' fontWeight='700'>
 					Welcome to LemonadeStand
 				</Typography>
-				<TextField
-					ref={emailRef}
-					variant='outlined'
-					label='Email'
-					type='email'
-				/>
+				<FormControl>
+					<StyledTextField
+						ref={emailRef}
+						variant='outlined'
+						label='Email'
+						type='email'
+					/>
+				</FormControl>
 				<FormControl variant='outlined'>
 					<InputLabel htmlFor='outlined-adornment-password'>
 						Password
 					</InputLabel>
-					<OutlinedInput
+					<SyledOutlinedInput
 						id='outlined-adornment-password'
 						type={showPassword ? 'text' : 'password'}
+						sx={{ input: { color: 'black' } }}
 						endAdornment={
 							<InputAdornment position='end'>
 								<IconButton
@@ -76,6 +79,10 @@ const Login = () => {
 					/>
 				</FormControl>
 				<Link to=''>Forgot your password?</Link>
+				<Button variant='contained'>Log in</Button>
+				<Button sx={{ backgroundColor: '#f7faff' }} variant='contained'>
+					Continue with Google
+				</Button>
 			</Box>
 		</>
 	);
