@@ -13,6 +13,7 @@ import {
 	StyledTextField,
 	SyledOutlinedInput,
 } from 'components/styles';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthenticationType } from 'types/Authentication';
 
@@ -30,6 +31,7 @@ export const Signup = (props: AuthenticationType) => {
 					variant='outlined'
 					label='Email'
 					type='email'
+					autoComplete='off'
 				/>
 			</FormControl>
 			<FormControl variant='outlined'>
@@ -38,6 +40,7 @@ export const Signup = (props: AuthenticationType) => {
 					id='outlined-adornment-password'
 					type={props.showPassword ? 'text' : 'password'}
 					sx={{ input: { color: 'black' } }}
+					autoComplete='off'
 					endAdornment={
 						<InputAdornment position='end'>
 							<IconButton
@@ -65,6 +68,7 @@ export const Signup = (props: AuthenticationType) => {
 					id='outlined-adornment-password'
 					type={showConfirmPassword ? 'text' : 'password'}
 					sx={{ input: { color: 'black' } }}
+					autoComplete='off'
 					endAdornment={
 						<InputAdornment position='end'>
 							<IconButton

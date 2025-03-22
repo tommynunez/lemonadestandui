@@ -28,6 +28,7 @@ export const Login = (props: AuthenticationType) => {
 					variant='outlined'
 					label='Email'
 					type='email'
+					autoComplete='off'
 				/>
 			</FormControl>
 			<FormControl variant='outlined'>
@@ -36,6 +37,7 @@ export const Login = (props: AuthenticationType) => {
 					id='outlined-adornment-password'
 					type={props.showPassword ? 'text' : 'password'}
 					sx={{ input: { color: 'black' } }}
+					autoComplete='off'
 					endAdornment={
 						<InputAdornment position='end'>
 							<IconButton
