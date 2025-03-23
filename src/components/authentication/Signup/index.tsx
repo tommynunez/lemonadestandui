@@ -19,7 +19,7 @@ import { AuthenticationType } from 'types/Authentication';
 
 export const Signup = (props: AuthenticationType) => {
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+	const handleClickShowPassword = () => setShowConfirmPassword((show) => !show);
 	return (
 		<>
 			<Typography variant='h5' textAlign='center' fontWeight='700'>
@@ -77,7 +77,7 @@ export const Signup = (props: AuthenticationType) => {
 										? 'hide the password'
 										: 'display the password'
 								}
-								onClick={props.handleClickShowPassword}
+								onClick={handleClickShowPassword}
 								onMouseDown={props.handleMouseDownPassword}
 								onMouseUp={props.handleMouseUpPassword}
 								edge='end'>
@@ -85,7 +85,7 @@ export const Signup = (props: AuthenticationType) => {
 							</IconButton>
 						</InputAdornment>
 					}
-					label='Password'
+					label='Confirm Password'
 				/>
 			</FormControl>
 			<Link to=''>Forgot your password?</Link>
